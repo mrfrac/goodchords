@@ -1,0 +1,32 @@
+{
+  "name": "goodchords",
+  "version": "0.0.1",
+  "description": "Some description here ;)",
+  "main": "dist/goodchords.cjs.js",
+  "module": "dist/goodchords.es.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && rollup -c",
+    "min": "uglifyjs dist/goodchords.umd.js -mc > dist/goodchords.umd.min.js",
+    "test": "npm run clean && rollup -c rollup-testing.config.js && jest",
+    "prepublish": "npm run build && npm run min",
+    "clean": "rimraf dist coverage"
+  },
+  "keywords": [
+    "chord",
+    "note",
+    "circle",
+    "music"
+  ],
+  "dependencies": {
+    "rollup": "^0.67.3",
+    "rollup-plugin-typescript": "^1.0.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.2.1",
+    "uglify-js": "^3.4.9"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "rimraf": "^2.6.2"
+  }
+}

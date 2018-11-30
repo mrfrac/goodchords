@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Sample page</title>
+        <script src="../dist/goodchords.umd.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+        <style>
+            section {
+                width: 12em;
+                margin: auto;
+            }
+
+            .chart {
+                position: relative;
+                overflow: hidden; /* .triangle выходят за пределы */
+            }
+
+            .chart:before {
+                content: "";
+                display: block;
+                padding-top: 100%;
+            }
+
+            .triangle {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 50%;
+                transform-origin: center bottom;
+                overflow: hidden;
+            }
+
+            .circle {
+                height: 100%;
+                width: 100%;
+                background: silver;
+                border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+                transform-origin: center bottom;
+                transform: rotate(120deg);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Sample page</h1>
+        <section class="chart">
+            <div class="triangle" style="transform:rotate(   0deg)"><div class="circle" style="background:#ff7f00"></div></div>
+            <div class="triangle" style="transform:rotate( -60deg)"><div class="circle" style="background:#ff0000"></div></div>
+            <div class="triangle" style="transform:rotate(-120deg)"><div class="circle" style="background:#9400d3"></div></div>
+            <div class="triangle" style="transform:rotate(-180deg)"><div class="circle" style="background:#4b0082"></div></div>
+            <div class="triangle" style="transform:rotate(-180deg)"><div class="circle" style="background:#0000ff"></div></div>
+            <div class="triangle" style="transform:rotate(-240deg)"><div class="circle" style="background:#00ff00"></div></div>
+            <div class="triangle" style="transform:rotate(-300deg)"><div class="circle" style="background:#ffff00"></div></div>
+        </section>
+    </body>
+</html>
