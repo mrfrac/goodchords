@@ -26,6 +26,7 @@
     "uglify-js": "^3.4.9"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "jest": "^23.6.0",
     "rimraf": "^2.6.2"
   }
