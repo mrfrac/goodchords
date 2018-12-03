@@ -1,6 +1,8 @@
 import { getMajorRawScale, getMinorRawScale } from "./scale";
+import { GoodChords } from "./goodchords";
 
-export { 
+export {
     getMajorRawScale,
-    getMinorRawScale
+    getMinorRawScale,
+    GoodChords
 };
