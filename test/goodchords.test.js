@@ -17,19 +17,20 @@ describe("Raw scales testing", () => {
 describe("GoodChords class testing", () => {
     test("Raw circle of fifths", () => {
         const gChords = new gc.GoodChords();
-        expect(gChords.getCircle()).toEqual([
-            [ "C", "A" ],
-            [ "G", "E" ],
-            [ "D", "B" ],
-            [ "A", "Gb" ],
-            [ "E", "Db" ],
-            [ "B", "Ab" ],
-            [ "Gb", "Eb" ],
-            [ "Db", "Bb" ],
-            [ "Ab", "F" ],
-            [ "Eb", "C" ],
-            [ "Bb", "G" ],
-            [ "F", "D" ]
+        const circle = gChords.getCircle().map(item => [item[0].toString(), item[1].toString()])
+        expect(circle).toEqual([
+            [ "C", "Am" ],
+            [ "G", "Em" ],
+            [ "D", "Bm" ],
+            [ "A", "Gbm" ],
+            [ "E", "Dbm" ],
+            [ "B", "Abm" ],
+            [ "Gb", "Ebm" ],
+            [ "Db", "Bbm" ],
+            [ "Ab", "Fm" ],
+            [ "Eb", "Cm" ],
+            [ "Bb", "Gm" ],
+            [ "F", "Dm" ]
         ]);
     });
 });
