@@ -45,3 +45,9 @@ describe("GoodChords class testing", () => {
         expect(() => gChords.getGoodChords("Z")).toThrow();
     });
 });
+
+describe("Chord testing", () => {
+    test("Chord throws", () => {
+        expect(() => new gc.Chord("Z")).toThrow();
+    });
+});
