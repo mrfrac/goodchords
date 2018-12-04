@@ -33,4 +33,15 @@ describe("GoodChords class testing", () => {
             [ "F", "Dm" ]
         ]);
     });
+
+    test("getGoodChords testing", () => {
+        const gChords = new gc.GoodChords();
+        let chords = gChords.getGoodChords("C").map(chord => chord.toString());
+        expect(chords).toEqual(["C", "Am", "F", "Dm", "G", "Em"]);
+
+        chords = gChords.getGoodChords("Eb", 1).map(chord => chord.toString());
+        expect(chords).toEqual(["Gb", "Ebm", "B", "Abm", "Db", "Bbm"]);
+
+        expect(() => gChords.getGoodChords("Z")).toThrow();
+    });
 });

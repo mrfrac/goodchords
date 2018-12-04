@@ -4,7 +4,6 @@ import { Chord, ChordContextEnum } from "./chord";
 
 export class GoodChords {
     public circle: Array<[Chord, Chord]> = [];
-    private notes = Object.keys(NotesEnum);
 
     constructor() {
         this.circle.push([new Chord("C"), new Chord(getMajorRawScale("C")[5], ChordContextEnum.Minor)]);
@@ -20,7 +19,18 @@ export class GoodChords {
         }
     }
 
-    public getCircle() {
+    public getCircle(): Array<[Chord, Chord]> {
         return this.circle;
+    }
+
+    public getGoodChords(tonic: Note, context: ChordContextEnum = ChordContextEnum.Major): Chord[] {
+        const home = this.circle.find(item => {
+            const index = context === ChordContextEnum.Major ? 0 : 1;
+            return item[index].note === tonic;
+        });
+        const homeIndex = this.circle.indexOf(home);
+        const right = this.circle[(homeIndex + 1) % this.circle.length];
+        const left = this.circle[this.circle.length - homeIndex - 1];
+        return [...home, ...left, ...right];
     }
 }
