@@ -1,4 +1,4 @@
-import { Note, NotesEnum } from "./notes";
+import { Note } from "./notes";
 import { getMajorRawScale, getMinorRawScale } from "./scale";
 import { Chord, ChordContextEnum } from "./chord";
 
@@ -24,13 +24,17 @@ export class GoodChords {
     }
 
     public getGoodChords(tonic: Note, context: ChordContextEnum = ChordContextEnum.Major): Chord[] {
-        const home = this.circle.find(item => {
+        const home = this.circle.find((item: [Chord, Chord]) => {
             const index = context === ChordContextEnum.Major ? 0 : 1;
             return item[index].note === tonic;
         });
         const homeIndex = this.circle.indexOf(home);
         const right = this.circle[(homeIndex + 1) % this.circle.length];
         const left = this.circle[this.circle.length - homeIndex - 1];
-        return [...home, ...left, ...right];
+
+        // @todo sorting
+        if (context === ChordContextEnum.Major) return [home[0], left[1], right[1], left[0], right[0], home[1]];
+
+        return [home[1], home[0], left[1], left[0], right[1], right[0]];
     }
 }
