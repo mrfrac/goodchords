@@ -6,7 +6,7 @@ import { NotesEnum, Note } from "./notes"
  */
 export function getMajorRawScale(note: Note): Note[] {
     const formula = [2, 2, 1, 2, 2, 2, 1];
-    const scale = new Scale(note, formula)
+    const scale = new Scale(note, formula);
 
     return scale.getRawScale();
 }
@@ -17,28 +17,30 @@ export function getMajorRawScale(note: Note): Note[] {
  */
 export function getMinorRawScale(note: Note): Note[] {
     const formula = [2, 1, 2, 2, 1, 2, 2];
-    const scale = new Scale(note, formula)
+    const scale = new Scale(note, formula);
 
     return scale.getRawScale();
 }
 
 export class Scale {
-    private notes = Object.keys(NotesEnum);
+    private notes = Object.keys(NotesEnum) as Note[];
     private scale: Note[] = [];
 
     constructor(private rootNote: Note, private formula: number[]) {
-        if (this.notes.indexOf(this.rootNote) === -1) throw new Error(`Wrong note: ${rootNote}`);
+        if (this.notes.indexOf(this.rootNote) === -1) {
+            throw new Error(`Wrong note: ${rootNote}`);
+        }
 
         this.scale.push(this.rootNote);
 
-        formula.forEach(val => {
+        this.formula.forEach((val) => {
             const prevNotePosition = this.notes.indexOf(this.scale[this.scale.length - 1]);
             const newNote = this.notes[(prevNotePosition + val) % this.notes.length] as Note;
             this.scale.push(newNote);
         });
     }
 
-    getRawScale() {
+    public getRawScale() {
         return this.scale;
     }
 }

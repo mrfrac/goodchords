@@ -2,7 +2,7 @@ import { Note, NotesEnum } from "./notes";
 
 export enum ChordContextEnum {
     Major,
-    Minor
+    Minor,
 }
 
 export class Chord {

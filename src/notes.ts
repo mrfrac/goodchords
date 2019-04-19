@@ -10,7 +10,7 @@ export enum NotesEnum {
     F = "F",
     Gb = "Gb",
     G = "G",
-    Ab = "Ab"
-};
+    Ab = "Ab",
+}
 
 export type Note = keyof typeof NotesEnum;

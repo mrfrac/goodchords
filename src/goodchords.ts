@@ -28,12 +28,20 @@ export class GoodChords {
             const index = context === ChordContextEnum.Major ? 0 : 1;
             return item[index].note === tonic;
         });
+
+        if (!home) {
+            // todo Change error text
+            throw new Error(`Some troubles with tonic`);
+        }
+
         const homeIndex = this.circle.indexOf(home);
         const right = this.circle[(homeIndex + 1) % this.circle.length];
         const left = this.circle[this.circle.length - homeIndex - 1];
 
         // @todo sorting
-        if (context === ChordContextEnum.Major) return [home[0], left[1], right[1], left[0], right[0], home[1]];
+        if (context === ChordContextEnum.Major) {
+            return [home[0], left[1], right[1], left[0], right[0], home[1]];
+        }
 
         return [home[1], home[0], left[1], left[0], right[1], right[0]];
     }
