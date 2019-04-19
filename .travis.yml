@@ -4,7 +4,6 @@ node_js:
 
 jobs:
   include:
-  - stage: Build project
+  - stage: Produce coverage
     script: yarn run build
-  - stage: Produce Coverage
     script: jest --coverage --coverageReporters=text-lcov | coveralls
