@@ -1,10 +1,12 @@
 import typescript from "rollup-plugin-typescript";
+import { uglify } from "rollup-plugin-uglify";
 
-function getConfig(target) {
+function getConfig(target, plugins = []) {
     return {
         input: "./src/index.ts",
         plugins: [
-            typescript()
+            typescript(),
+            ...plugins
         ],
         output: {
             file: `dist/goodchords.${target}.js`,
@@ -14,4 +16,4 @@ function getConfig(target) {
     }
 }
 
-export default [getConfig("cjs"), getConfig("es"), getConfig("umd")];
+export default [getConfig("cjs"), getConfig("es"), getConfig("umd", [uglify()])];

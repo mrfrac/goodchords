@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "npm run clean && rollup -c",
-    "min": "uglifyjs dist/goodchords.umd.js -mc > dist/goodchords.umd.min.js",
-    "test": "npm run clean && rollup -c rollup-testing.config.js && jest",
+    "test": "npm run build && jest",
+    "coverage": "npm run build && jest --coverage",
     "clean": "rimraf dist coverage"
   },
   "keywords": [
@@ -18,15 +18,15 @@
     "music"
   ],
   "dependencies": {
-    "rollup": "^1.14.2",
+    "rollup": "^1.22.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "tslib": "^1.9.3",
-    "typescript": "^3.5.1",
-    "uglify-js": "^3.6.0"
+    "tslib": "^1.10.0",
+    "typescript": "^3.6.3"
   },
   "devDependencies": {
-    "coveralls": "^3.0.4",
-    "jest": "^24.8.0",
-    "rimraf": "^2.6.3"
+    "coveralls": "^3.0.6",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "rollup-plugin-uglify": "^6.0.3"
   }
 }
