@@ -1,11 +1,11 @@
-import { Note, NotesEnum } from "./notes"
+import { Note, NotesEnum } from "./notes";
 
 /**
  * @alias new Scale(note, [2, 2, 1, 2, 2, 2, 1]).getRawScale()
  * @param note
  */
 export function getMajorRawScale(note: Note): Note[] {
-    const formula = [2, 2, 1, 2, 2, 2, 1];
+    const formula = "1"; // [2, 2, 1, 2, 2, 2, 1];
     const scale = new Scale(note, formula);
 
     return scale.getRawScale();
