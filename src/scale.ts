@@ -5,7 +5,7 @@ import { Note, NotesEnum } from "./notes";
  * @param note
  */
 export function getMajorRawScale(note: Note): Note[] {
-    const formula = "1"; // [2, 2, 1, 2, 2, 2, 1];
+    const formula = [2, 2, 1, 2, 2, 2, 1];
     const scale = new Scale(note, formula);
 
     return scale.getRawScale();
