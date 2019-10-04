@@ -27,6 +27,7 @@
     "coveralls": "^3.0.6",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "rollup-plugin-uglify": "^6.0.3"
+    "rollup-plugin-uglify": "^6.0.3",
+    "tslint": "^5.20.0"
   }
 }

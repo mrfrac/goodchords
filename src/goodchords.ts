@@ -1,6 +1,6 @@
+import { Chord, ChordContextEnum } from "./chord";
 import { Note } from "./notes";
 import { getMajorRawScale, getMinorRawScale } from "./scale";
-import { Chord, ChordContextEnum } from "./chord";
 
 export class GoodChords {
     public circle: Array<[Chord, Chord]> = [];
@@ -8,7 +8,7 @@ export class GoodChords {
     constructor() {
         this.circle.push([new Chord("C"), new Chord(getMajorRawScale("C")[5], ChordContextEnum.Minor)]);
 
-        for(let i = 0; i < 11; i++) {
+        for (let i = 0; i < 11; i++) {
             const prevStep = this.circle[this.circle.length - 1];
             const prevMajorNote = prevStep[0].note;
             const prevMinorNote = prevStep[1].note;
