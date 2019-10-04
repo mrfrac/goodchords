@@ -1,4 +1,4 @@
-import { Note, NotesEnum } from "./notes";
+import { Note, NotesEnum } from "./notes"
 
 /**
  * @alias new Scale(note, [2, 2, 1, 2, 2, 2, 1]).getRawScale()

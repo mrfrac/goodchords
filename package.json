@@ -9,7 +9,9 @@
     "build": "npm run clean && rollup -c",
     "test": "npm run build && jest",
     "coverage": "npm run build && jest --coverage",
-    "clean": "rimraf dist coverage"
+    "clean": "rimraf dist coverage",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "linter": "tslint --project ."
   },
   "keywords": [
     "chord",
@@ -25,9 +27,15 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.6",
+    "husky": "^3.0.8",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "rollup-plugin-uglify": "^6.0.3",
     "tslint": "^5.20.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run typecheck && npm run linter"
+    }
   }
 }
