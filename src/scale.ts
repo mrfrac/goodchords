@@ -1,10 +1,10 @@
-import { Note, NotesEnum } from "./notes";
+import { NoteLetter, NotesEnum } from "./notes";
 
 /**
  * @alias new Scale(note, [2, 2, 1, 2, 2, 2, 1]).getRawScale()
  * @param note
  */
-export function getMajorRawScale(note: Note): Note[] {
+export function getMajorRawScale(note: NoteLetter): NoteLetter[] {
     const formula = [2, 2, 1, 2, 2, 2, 1];
     const scale = new Scale(note, formula);
 
@@ -15,7 +15,7 @@ export function getMajorRawScale(note: Note): Note[] {
  * @alias new Scale(note, [2, 1, 2, 2, 1, 2, 2]).getRawScale()
  * @param note
  */
-export function getMinorRawScale(note: Note): Note[] {
+export function getMinorRawScale(note: NoteLetter): NoteLetter[] {
     const formula = [2, 1, 2, 2, 1, 2, 2];
     const scale = new Scale(note, formula);
 
@@ -23,10 +23,10 @@ export function getMinorRawScale(note: Note): Note[] {
 }
 
 export class Scale {
-    private notes = Object.keys(NotesEnum) as Note[];
-    private scale: Note[] = [];
+    private notes = Object.keys(NotesEnum) as NoteLetter[];
+    private scale: NoteLetter[] = [];
 
-    constructor(private rootNote: Note, private formula: number[]) {
+    constructor(private rootNote: NoteLetter, private formula: number[]) {
         if (this.notes.indexOf(this.rootNote) === -1) {
             throw new Error(`Wrong note: ${rootNote}`);
         }
@@ -35,7 +35,7 @@ export class Scale {
 
         this.formula.forEach((val) => {
             const prevNotePosition = this.notes.indexOf(this.scale[this.scale.length - 1]);
-            const newNote = this.notes[(prevNotePosition + val) % this.notes.length] as Note;
+            const newNote = this.notes[(prevNotePosition + val) % this.notes.length] as NoteLetter;
             this.scale.push(newNote);
         });
     }

@@ -51,3 +51,17 @@ describe("Chord testing", () => {
         expect(() => new gc.Chord("Z")).toThrow();
     });
 });
+
+describe("Note class testing", () => {
+    test("Should throw error", () => {
+        expect(() => gc.Note.fromString("")).toThrow();
+    });
+    test("Should be correct", () => {
+        const n1 = new gc.Note.fromString("c#1");
+        expect(n1.toString()).toBe("C#1");
+        const n2 = new gc.Note.fromString("d");
+        expect(n2.toString()).toBe("D4");
+        const n3 = new gc.Note.fromString("d5");
+        expect(n3.toString()).toBe("D5");
+    });
+});

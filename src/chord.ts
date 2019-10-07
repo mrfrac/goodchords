@@ -1,4 +1,4 @@
-import { Note, NotesEnum } from "./notes";
+import { NoteLetter, NotesEnum } from "./notes";
 
 export enum ChordContextEnum {
     Major,
@@ -6,10 +6,10 @@ export enum ChordContextEnum {
 }
 
 export class Chord {
-    public note: Note;
+    public note: NoteLetter;
     public context: ChordContextEnum;
 
-    constructor(note: Note, context: ChordContextEnum = ChordContextEnum.Major) {
+    constructor(note: NoteLetter, context: ChordContextEnum = ChordContextEnum.Major) {
         if (Object.keys(NotesEnum).indexOf(note) === -1) {
             throw new Error(`Wrong note: ${note}`);
         }

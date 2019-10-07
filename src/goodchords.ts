@@ -1,5 +1,5 @@
 import { Chord, ChordContextEnum } from "./chord";
-import { Note } from "./notes";
+import { NoteLetter } from "./notes";
 import { getMajorRawScale, getMinorRawScale } from "./scale";
 
 export class GoodChords {
@@ -23,7 +23,7 @@ export class GoodChords {
         return this.circle;
     }
 
-    public getGoodChords(tonic: Note, context: ChordContextEnum = ChordContextEnum.Major): Chord[] {
+    public getGoodChords(tonic: NoteLetter, context: ChordContextEnum = ChordContextEnum.Major): Chord[] {
         const home = this.circle.find((item: [Chord, Chord]) => {
             const index = context === ChordContextEnum.Major ? 0 : 1;
             return item[index].note === tonic;
