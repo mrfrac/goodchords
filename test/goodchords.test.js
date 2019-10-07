@@ -63,5 +63,7 @@ describe("Note class testing", () => {
         expect(n2.toString()).toBe("D4");
         const n3 = new gc.Note.fromString("d5");
         expect(n3.toString()).toBe("D5");
+        const n4 = new gc.Note.fromString("db5");
+        expect(n4.toString()).toBe("Db5");
     });
 });
