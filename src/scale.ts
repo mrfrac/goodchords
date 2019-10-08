@@ -1,14 +1,14 @@
-import { NoteLetter, NotesEnum } from "./notes";
+import { NoteLetter, NotesEnum } from "./Note";
 
 /**
  * @alias new Scale(note, [2, 2, 1, 2, 2, 2, 1]).getRawScale()
  * @param note
  */
 export function getMajorRawScale(note: NoteLetter): NoteLetter[] {
-    const formula = [2, 2, 1, 2, 2, 2, 1];
-    const scale = new Scale(note, formula);
+  const formula = [2, 2, 1, 2, 2, 2, 1];
+  const scale = new Scale(note, formula);
 
-    return scale.getRawScale();
+  return scale.getRawScale();
 }
 
 /**
@@ -16,31 +16,38 @@ export function getMajorRawScale(note: NoteLetter): NoteLetter[] {
  * @param note
  */
 export function getMinorRawScale(note: NoteLetter): NoteLetter[] {
-    const formula = [2, 1, 2, 2, 1, 2, 2];
-    const scale = new Scale(note, formula);
+  const formula = [2, 1, 2, 2, 1, 2, 2];
+  const scale = new Scale(note, formula);
 
-    return scale.getRawScale();
+  return scale.getRawScale();
 }
 
+/**
+ * @deprecated
+ */
 export class Scale {
-    private notes = Object.keys(NotesEnum) as NoteLetter[];
-    private scale: NoteLetter[] = [];
+  private notes = Object.keys(NotesEnum) as NoteLetter[];
+  private scale: NoteLetter[] = [];
 
-    constructor(private rootNote: NoteLetter, private formula: number[]) {
-        if (this.notes.indexOf(this.rootNote) === -1) {
-            throw new Error(`Wrong note: ${rootNote}`);
-        }
-
-        this.scale.push(this.rootNote);
-
-        this.formula.forEach((val) => {
-            const prevNotePosition = this.notes.indexOf(this.scale[this.scale.length - 1]);
-            const newNote = this.notes[(prevNotePosition + val) % this.notes.length] as NoteLetter;
-            this.scale.push(newNote);
-        });
+  constructor(private rootNote: NoteLetter, private formula: number[]) {
+    if (this.notes.indexOf(this.rootNote) === -1) {
+      throw new Error(`Wrong note: ${rootNote}`);
     }
 
-    public getRawScale() {
-        return this.scale;
-    }
+    this.scale.push(this.rootNote);
+
+    this.formula.forEach((val) => {
+      const prevNotePosition = this.notes.indexOf(
+        this.scale[this.scale.length - 1],
+      );
+      const newNote = this.notes[
+        (prevNotePosition + val) % this.notes.length
+      ] as NoteLetter;
+      this.scale.push(newNote);
+    });
+  }
+
+  public getRawScale() {
+    return this.scale;
+  }
 }
