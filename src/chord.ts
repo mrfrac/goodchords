@@ -5,6 +5,9 @@ export enum ChordContextEnum {
   Minor,
 }
 
+/**
+ * @deprecated
+ */
 export class Chord {
   public note: NoteLetter;
   public context: ChordContextEnum;

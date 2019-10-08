@@ -2,6 +2,9 @@ import { Chord, ChordContextEnum } from "./chord";
 import { NoteLetter } from "./Note";
 import { getMajorRawScale, getMinorRawScale } from "./scale";
 
+/**
+ * @deprecated
+ */
 export class GoodChords {
   public circle: Array<[Chord, Chord]> = [];
 

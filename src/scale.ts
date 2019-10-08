@@ -22,6 +22,9 @@ export function getMinorRawScale(note: NoteLetter): NoteLetter[] {
   return scale.getRawScale();
 }
 
+/**
+ * @deprecated
+ */
 export class Scale {
   private notes = Object.keys(NotesEnum) as NoteLetter[];
   private scale: NoteLetter[] = [];
