@@ -1,4 +1,6 @@
+![GitHub top language](https://img.shields.io/github/languages/top/mrfrac/goodchords)
 [![Build Status](https://travis-ci.org/mrfrac/goodchords.svg?branch=master)](https://travis-ci.org/mrfrac/goodchords)
 [![Coverage Status](https://coveralls.io/repos/github/mrfrac/goodchords/badge.svg?branch=master)](https://coveralls.io/github/mrfrac/goodchords?branch=master)
 [![dependencies Status](https://david-dm.org/mrfrac/goodchords/status.svg)](https://david-dm.org/mrfrac/goodchords)
 [![devDependencies Status](https://david-dm.org/mrfrac/goodchords/dev-status.svg)](https://david-dm.org/mrfrac/goodchords?type=dev)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
