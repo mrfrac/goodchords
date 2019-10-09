@@ -1,10 +1,10 @@
-import { Note } from "./Note";
+import { AccidentalsEnum, Note } from "./Note";
 
 describe("Note class testing", () => {
   test("Should throw error", () => {
     expect(() => Note.fromString("")).toThrow();
   });
-  test("Should be correct", () => {
+  test("Should be correct converse fromString -> toString", () => {
     const cs1 = Note.fromString("c#1");
     expect(cs1.toString()).toBe("C#1");
     const d = Note.fromString("d");
@@ -13,5 +13,13 @@ describe("Note class testing", () => {
     expect(d5.toString()).toBe("D5");
     const db5 = Note.fromString("db5");
     expect(db5.toString()).toBe("Db5");
+  });
+  test("Should be correct construct note", () => {
+    const n1 = new Note("A", AccidentalsEnum.None, 3);
+    expect(n1.toString()).toBe("A3");
+    const n2 = new Note("B", AccidentalsEnum.Flat, 7);
+    expect(n2.toString()).toBe("Bb7");
+    const n3 = new Note("B", AccidentalsEnum.Sharp, 8);
+    expect(n3.toString()).toBe("B#8");
   });
 });
