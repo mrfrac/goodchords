@@ -1,5 +1,7 @@
-type TIntervalNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
+import { INTERVALS } from "./knowledge";
+
+export type TIntervalNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
 export class Interval {
   /**
@@ -18,7 +20,7 @@ export class Interval {
       );
     }
 
-    throw new Error(`Wrong interval name: ${name}`);
+    throw new Error(`Wrong interval string value: ${name}`);
   }
 
   private num: TIntervalNumber;
@@ -33,6 +35,21 @@ export class Interval {
   public constructor(num: TIntervalNumber, quality: TIntervalQuality) {
     this.num = num;
     this.quality = quality;
+
+    if (this.getSemitones() === undefined) {
+      throw new Error(`Has no interval information: ${this.toString()}`);
+    }
+  }
+
+  public getSemitones(): number | undefined {
+    if (
+      INTERVALS.hasOwnProperty(this.quality) &&
+      INTERVALS[this.quality][this.num] >= 0
+    ) {
+      return INTERVALS[this.quality][this.num];
+    }
+
+    return;
   }
 
   public toString(): string {
