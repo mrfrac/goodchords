@@ -1,5 +1,5 @@
-import { getMajorRawScale, getMinorRawScale } from ".";
-import { NoteLetter } from "./Note";
+import { NoteLetter } from "../Note";
+import { getMajorRawScale, getMinorRawScale } from "../scale";
 
 describe("Raw scales testing", () => {
   test("Major scale testing", () => {

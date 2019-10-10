@@ -1,4 +1,4 @@
-import { AccidentalsEnum, Note } from "./Note";
+import { AccidentalsEnum, Note } from "../Note";
 
 describe("Note class testing", () => {
   test("Should throw error", () => {
