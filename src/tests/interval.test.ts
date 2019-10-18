@@ -18,9 +18,9 @@ describe("Interval class testing", () => {
     }).toThrow();
   });
   test("Should correct get semitones", () => {
-    expect(new Interval(1, "A").getSemitones()).toBe(1);
-    expect(new Interval(6, "m").getSemitones()).toBe(8);
-    expect(new Interval(5, "d").getSemitones()).toBe(6);
-    expect(new Interval(4, "P").getSemitones()).toBe(5);
+    expect(new Interval(1, "A").getPitchClass()).toBe(1);
+    expect(new Interval(6, "m").getPitchClass()).toBe(8);
+    expect(new Interval(5, "d").getPitchClass()).toBe(6);
+    expect(new Interval(4, "P").getPitchClass()).toBe(5);
   });
 });

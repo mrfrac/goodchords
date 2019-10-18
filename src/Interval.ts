@@ -3,10 +3,19 @@ import { INTERVALS } from "./knowledge";
 export type TIntervalNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
+/**
+ * Simple Music Interval class realisation
+ * @todo
+ *  - Move knowledge to knowledge
+ * @see https://en.wikipedia.org/wiki/Interval_(music)
+ */
 export class Interval {
   /**
+   * String to Interval conversion
    * @todo Improve regex
-   * @param name
+   * @throws {Error} If invalid interval string value passed
+   * @param {string} name - Interval string value (P1, ...)
+   * @returns {Interval}
    */
   public static fromString(name: string): Interval {
     const regex = /^([PMmAd]{1})(\d{1,2})$/;
@@ -27,9 +36,13 @@ export class Interval {
   private quality: TIntervalQuality;
 
   /**
-   * @todo
-   * - add validation
-   * - direction
+   * @param {TIntervalNumber} num - Interval number
+   * @param {TIntervalQuality} quality - Interval quality
+   * @example
+   * new Interval(1, "P");
+   * @example
+   * Interval.fromString("P1");
+   * @see https://en.wikipedia.org/wiki/Interval_(music)#Interval_number_and_quality
    */
   public constructor(num: TIntervalNumber, quality: TIntervalQuality) {
     this.num = num;
@@ -40,7 +53,10 @@ export class Interval {
     }
   }
 
-  public getSemitones(): number {
+  /**
+   * @returns {number} Pitch class
+   */
+  public getPitchClass(): number {
     if (
       INTERVALS.hasOwnProperty(this.quality) &&
       INTERVALS[this.quality][this.num] >= 0
@@ -51,9 +67,13 @@ export class Interval {
     throw new Error(`Interval ${this.toString()} nas no semitones value`);
   }
 
+  /**
+   * Check interval validity (Interval must be described in knowledge base)
+   * @returns {boolean}
+   */
   public isValid(): boolean {
     try {
-      this.getSemitones();
+      this.getPitchClass();
     } catch (e) {
       return false;
     }
@@ -61,6 +81,13 @@ export class Interval {
     return true;
   }
 
+  /**
+   * Interval to string conversion
+   * @example
+   * // returns P1
+   * new Interval(1, "P").toString();
+   * @returns {string}
+   */
   public toString(): string {
     return `${this.quality}${this.num}`;
   }

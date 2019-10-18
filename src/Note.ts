@@ -82,12 +82,13 @@ export class Note {
         ...allKeys.slice(0, allKeys.indexOf(this.note) - 1),
       ];
     })();
-    const semitones = interval.getSemitones();
+    const semitones = interval.getPitchClass();
     const noteIndex = keys.indexOf(this.note);
-    const targetNoteIndex = (semitones + noteIndex) % 12;
     const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
     const targetOctave = this.octave + intervalOctaves;
 
-    return Note.fromString(`${keys[targetNoteIndex]}${targetOctave}`);
+    return Note.fromString(
+      `${keys[(semitones + noteIndex) % 12]}${targetOctave}`,
+    );
   }
 }
