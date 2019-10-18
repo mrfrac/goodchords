@@ -1,3 +1,5 @@
+import { Interval } from "./Interval";
+
 export enum NotesEnum {
   A = "A",
   Bb = "Bb",
@@ -25,7 +27,7 @@ export type NoteLetter = keyof typeof NotesEnum;
 
 export class Note {
   public static fromString(note: string): Note {
-    const regex = /^([c-g]{1})([#b]{1})?([0-9]{1})?$/;
+    const regex = /^([a-g]{1})([#b]{1})?([0-9]{1})?$/i;
 
     const tokens = note.match(regex);
 
@@ -42,7 +44,7 @@ export class Note {
     }
 
     // @todo типизировать ошибку
-    throw new Error("Wrong note format");
+    throw new Error(`Wrong note format: ${note}`);
   }
 
   private note: NoteLetter;
@@ -67,5 +69,25 @@ export class Note {
       acc = "#";
     }
     return `${this.note}${acc}${this.octave}`;
+  }
+
+  public transpose(interval: string | Interval): Note {
+    interval =
+      typeof interval === "string" ? Interval.fromString(interval) : interval;
+
+    const keys = (() => {
+      const allKeys = Object.keys(NotesEnum);
+      return [
+        ...allKeys.slice(allKeys.indexOf(this.note)),
+        ...allKeys.slice(0, allKeys.indexOf(this.note) - 1),
+      ];
+    })();
+    const semitones = interval.getSemitones();
+    const noteIndex = keys.indexOf(this.note);
+    const targetNoteIndex = (semitones + noteIndex) % 12;
+    const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
+    const targetOctave = this.octave + intervalOctaves;
+
+    return Note.fromString(`${keys[targetNoteIndex]}${targetOctave}`);
   }
 }

@@ -8,6 +8,7 @@
   "scripts": {
     "build": "npm run clean && rollup -c",
     "test": "jest",
+    "testing": "jest --watch",
     "coverage": "jest --coverage",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit --skipLibCheck",

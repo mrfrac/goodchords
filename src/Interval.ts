@@ -29,19 +29,18 @@ export class Interval {
   /**
    * @todo
    * - add validation
-   * - add compound intervals logic
    * - direction
    */
   public constructor(num: TIntervalNumber, quality: TIntervalQuality) {
     this.num = num;
     this.quality = quality;
 
-    if (this.getSemitones() === undefined) {
+    if (!this.isValid()) {
       throw new Error(`Has no interval information: ${this.toString()}`);
     }
   }
 
-  public getSemitones(): number | undefined {
+  public getSemitones(): number {
     if (
       INTERVALS.hasOwnProperty(this.quality) &&
       INTERVALS[this.quality][this.num] >= 0
@@ -49,7 +48,17 @@ export class Interval {
       return INTERVALS[this.quality][this.num];
     }
 
-    return;
+    throw new Error(`Interval ${this.toString()} nas no semitones value`);
+  }
+
+  public isValid(): boolean {
+    try {
+      this.getSemitones();
+    } catch (e) {
+      return false;
+    }
+
+    return true;
   }
 
   public toString(): string {
