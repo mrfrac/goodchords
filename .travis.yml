@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - "11.6.0"
+  - "12.11.1"
 
 jobs:
   include:
   - stage: Produce coverage
-    script: yarn run build && jest --coverage --coverageReporters=text-lcov | coveralls
+    script: jest --coverage --coverageReporters=text-lcov | coveralls

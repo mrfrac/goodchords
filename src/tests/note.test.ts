@@ -1,4 +1,5 @@
-import { AccidentalsEnum, Note } from "./Note";
+import { Interval, TIntervalQuality } from "../Interval";
+import { AccidentalsEnum, Note } from "../Note";
 
 describe("Note class testing", () => {
   test("Should throw error", () => {
@@ -21,5 +22,30 @@ describe("Note class testing", () => {
     expect(n2.toString()).toBe("Bb7");
     const n3 = new Note("B", AccidentalsEnum.Sharp, 8);
     expect(n3.toString()).toBe("B#8");
+  });
+  test("Should correct transpose note", () => {
+    expect(
+      Note.fromString("A")
+        .transpose("P1")
+        .toString(),
+    ).toBe("A4");
+    expect(
+      Note.fromString("A")
+        .transpose("P8")
+        .toString(),
+    ).toBe("A5");
+    expect(
+      Note.fromString("A")
+        .transpose(new Interval(8, "P"))
+        .toString(),
+    ).toBe("A5");
+    expect(
+      Note.fromString("G")
+        .transpose(new Interval(3, "M"))
+        .toString(),
+    ).toBe("B4");
+    expect(() => {
+      Note.fromString("G").transpose(new Interval(3, "Z" as TIntervalQuality));
+    }).toThrow();
   });
 });

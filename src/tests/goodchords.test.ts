@@ -1,5 +1,5 @@
-import { GoodChords } from ".";
-import { NoteLetter } from "./Note";
+import { GoodChords } from "../goodchords";
+import { NoteLetter } from "../Note";
 
 describe("GoodChords class testing", () => {
   test("Raw circle of fifths", () => {
