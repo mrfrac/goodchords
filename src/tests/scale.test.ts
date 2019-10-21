@@ -1,34 +1,22 @@
-import { NoteLetter } from "../Note";
-import { getMajorRawScale, getMinorRawScale } from "../scale";
+import { SCALES } from "../knowledge";
+import { Scale } from "../Scale";
 
-describe("Raw scales testing", () => {
-  test("Major scale testing", () => {
-    expect(getMajorRawScale("C")).toEqual([
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "A",
-      "B",
-      "C",
-    ]);
-  });
+describe("Scale class testing", () => {
+  const majorScale = SCALES.find((scale) => scale.names.includes("major"));
+  expect(majorScale).toBeDefined();
 
-  test("Minor scale testing", () => {
-    expect(getMinorRawScale("A")).toEqual([
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "A",
-    ]);
-  });
-
-  test("Wrong chord", () => {
-    expect(() => getMajorRawScale("Z" as NoteLetter)).toThrow();
-  });
+  if (majorScale) {
+    test("Should correct generate major (ionian) scale", () => {
+      const scale = new Scale("A", majorScale.formula);
+      expect(scale.getNotes().map((note) => note.toString())).toEqual([
+        "A4",
+        "B4",
+        "Db4",
+        "D4",
+        "E4",
+        "Gb4",
+        "Ab4",
+      ]);
+    });
+  }
 });

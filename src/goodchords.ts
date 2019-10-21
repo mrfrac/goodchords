@@ -1,10 +1,7 @@
-import { Chord, ChordContextEnum } from "./chord";
+/* import { Chord, ChordContextEnum } from "./chord";
 import { NoteLetter } from "./Note";
-import { getMajorRawScale, getMinorRawScale } from "./scale";
+import { getMajorRawScale, getMinorRawScale } from "./Scale";
 
-/**
- * @deprecated
- */
 export class GoodChords {
   public circle: Array<[Chord, Chord]> = [];
 
@@ -58,3 +55,4 @@ export class GoodChords {
     return [home[1], home[0], left[1], left[0], right[1], right[0]];
   }
 }
+ */
