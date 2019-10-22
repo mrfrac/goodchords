@@ -7,7 +7,7 @@ describe("Scale class testing", () => {
 
   if (majorScale) {
     test("Should correct generate major (ionian) scale", () => {
-      const scale = new Scale("A", majorScale.formula);
+      let scale = new Scale("A", majorScale.formula);
       expect(scale.getNotes().map((note) => note.toString())).toEqual([
         "A4",
         "B4",
@@ -17,6 +17,8 @@ describe("Scale class testing", () => {
         "Gb4",
         "Ab4",
       ]);
+      scale = new Scale("Ab4", majorScale.formula);
+      // console.log(scale.getNotes().map((t) => t.toString()));
     });
   }
 });

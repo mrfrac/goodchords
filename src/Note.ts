@@ -87,8 +87,10 @@ export class Note {
     const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
     const targetOctave = this.octave + intervalOctaves;
 
-    return Note.fromString(
-      `${keys[(semitones + noteIndex) % 12]}${targetOctave}`,
+    return new Note(
+      keys[(semitones + noteIndex) % 12] as NoteLetter,
+      this.accidental,
+      targetOctave as Octave,
     );
   }
 }

@@ -14,6 +14,7 @@ describe("Note class testing", () => {
     expect(d5.toString()).toBe("D5");
     const db5 = Note.fromString("db5");
     expect(db5.toString()).toBe("Db5");
+    expect(Note.fromString("Ab4").toString()).toBe("Ab4");
   });
   test("Should be correct construct note", () => {
     const n1 = new Note("A", AccidentalsEnum.None, 3);
