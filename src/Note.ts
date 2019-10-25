@@ -61,9 +61,9 @@ export class Note {
     throw new Error(`Wrong note format: ${note}`);
   }
 
+  public accidental: AccidentalsEnum;
   private index: number;
   private note: NoteLetter;
-  private accidental: AccidentalsEnum;
   private octave: Octave;
 
   public constructor(
@@ -111,8 +111,6 @@ export class Note {
     let noteIndex = keys.indexOf(this.note);
     const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
     const targetOctave = this.octave + intervalOctaves;
-
-    const noteLetter = "";
 
     if (keys[noteIndex] === "-") {
       if (this.accidental === AccidentalsEnum.Flat) {
