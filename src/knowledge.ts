@@ -2,7 +2,6 @@ import { Interval } from "./Interval";
 
 interface IIntervalKnowledge {
   [key: string]: {
-    type?: "major" | "minor" | "augumented" | "diminished" | "perfect";
     [key: number]: number;
   };
 }
@@ -23,7 +22,6 @@ export const INTERVALS: IIntervalKnowledge = {
     7: 12,
   },
   M: {
-    type: "major",
     2: 2,
     3: 4,
     6: 9,
