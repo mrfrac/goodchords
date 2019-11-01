@@ -26,6 +26,16 @@ describe("Note class testing", () => {
   });
   test("Should correct transpose note", () => {
     expect(
+      Note.fromString("C4")
+        .transpose("M3")
+        .toString(),
+    ).toBe("E4");
+    expect(
+      Note.fromString("E4")
+        .transpose("M3")
+        .toString(),
+    ).toBe("G#4");
+    expect(
       Note.fromString("A")
         .transpose("P1")
         .toString(),

@@ -100,29 +100,30 @@ export class Note {
     interval =
       typeof interval === "string" ? Interval.fromString(interval) : interval;
 
-    const keys = (() => {
-      const allKeys = Object.keys(NotesEnum);
-      return [
-        ...allKeys.slice(this.index),
-        ...allKeys.slice(0, this.index - 1),
-      ];
-    })();
-    const semitones = interval.getPitchClass();
-    let noteIndex = keys.indexOf(this.note);
-    const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
-    const targetOctave = this.octave + intervalOctaves;
+    const notes = [
+      ...Object.values(NotesEnum).slice(this.index),
+      ...Object.values(NotesEnum).slice(0, this.index),
+    ];
 
-    if (keys[noteIndex] === "-") {
+    let targetNoteCoordinate = interval.getPitchClass();
+    const intervalOctaves = Math.floor(targetNoteCoordinate / 12);
+    const targetOctave = this.octave + intervalOctaves;
+    let accidental = this.accidental;
+
+    if (notes[targetNoteCoordinate] === "-") {
       if (this.accidental === AccidentalsEnum.Flat) {
-        noteIndex -= 1;
+        targetNoteCoordinate -= 1;
       } else if (this.accidental === AccidentalsEnum.Sharp) {
-        noteIndex += 1;
+        targetNoteCoordinate += 1;
+      } else if (this.accidental === AccidentalsEnum.None) {
+        targetNoteCoordinate -= 1;
+        accidental = AccidentalsEnum.Sharp;
       }
     }
 
     return new Note(
-      keys[(semitones + noteIndex) % 12] as NoteLetter,
-      this.accidental,
+      notes[targetNoteCoordinate % 12] as NoteLetter,
+      accidental,
       targetOctave as Octave,
     );
   }
