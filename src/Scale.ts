@@ -3,7 +3,7 @@ import { Note } from "./Note";
 
 export class Scale {
   private rootNote: Note;
-  private formula: Interval[];
+  private formula: Interval[] = [];
   private notes: Note[] = [];
 
   public constructor(
@@ -16,17 +16,13 @@ export class Scale {
       this.rootNote = rootNote;
     }
 
-    const intervals: Interval[] = [];
-
     formula.forEach((interval) => {
       if (typeof interval === "string") {
-        intervals.push(Interval.fromString(interval));
+        this.formula.push(Interval.fromString(interval));
       } else {
-        intervals.push(interval);
+        this.formula.push(interval);
       }
     });
-
-    this.formula = intervals;
 
     // @todo сделать определение знаков альтерации
     // const isSharps = this.rootNote.accidental === AccidentalsEnum.None || this.rootNote.accidental === AccidentalsEnum.Sharp;

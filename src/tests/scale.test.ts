@@ -28,8 +28,7 @@ describe("Scale class testing", () => {
         "A#4",
       ]);
       scale = new Scale("C#4", majorScale.formula);
-      // @todo FIX:
-      /* console.log(scale.getNotes().map(n => n.toString()))
+      // console.log(scale.getNotes().map((n) => n.toString()));
       expect(scale.getNotes().map((note) => note.toString())).toEqual([
         "C#4",
         "D#4",
@@ -38,8 +37,7 @@ describe("Scale class testing", () => {
         "G#4",
         "A#4",
         "B#4",
-        "C#4",
-      ]);*/
+      ]);
     });
   }
 });

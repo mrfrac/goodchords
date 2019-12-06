@@ -108,21 +108,31 @@ export class Note {
     let targetNoteCoordinate = interval.getPitchClass();
     const intervalOctaves = Math.floor(targetNoteCoordinate / 12);
     const targetOctave = this.octave + intervalOctaves;
-    let accidental = this.accidental;
+    const accidental = this.accidental;
+
+    if (this.accidental === AccidentalsEnum.Flat) {
+      targetNoteCoordinate += 1;
+    } else if (this.accidental === AccidentalsEnum.Sharp) {
+      targetNoteCoordinate -= 1;
+    }
+
+    if (targetNoteCoordinate < 0) {
+      targetNoteCoordinate = 12 + targetNoteCoordinate;
+    }
+
+    targetNoteCoordinate = targetNoteCoordinate % 12;
 
     if (notes[targetNoteCoordinate] === "-") {
       if (this.accidental === AccidentalsEnum.Flat) {
-        targetNoteCoordinate -= 1;
-      } else if (this.accidental === AccidentalsEnum.Sharp) {
         targetNoteCoordinate += 1;
-      } else if (this.accidental === AccidentalsEnum.None) {
+      } else if (this.accidental === AccidentalsEnum.Sharp) {
         targetNoteCoordinate -= 1;
-        accidental = AccidentalsEnum.Sharp;
       }
     }
 
+    // console.log(this.note.toString(), this.accidental, interval.toString(), targetNoteCoordinate, notes[targetNoteCoordinate % 12])
     return new Note(
-      notes[targetNoteCoordinate % 12] as NoteLetter,
+      notes[targetNoteCoordinate] as NoteLetter,
       accidental,
       targetOctave as Octave,
     );
