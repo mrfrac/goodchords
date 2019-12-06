@@ -110,11 +110,27 @@ export class Note {
     targetNoteCoordinate = targetNoteCoordinate % notes.length;
     const targetOctave = (this.octave + intervalOctaves) as Octave;
     const noteLetter = notes[targetNoteCoordinate];
+    const accidental = this.accidental;
 
     // console.log(this.toString(), interval, targetNoteCoordinate, notes[targetNoteCoordinate]);
 
     if (noteLetter === "-") {
-      if (this.accidental === AccidentalsEnum.Flat) {
+      if (
+        this.accidental === AccidentalsEnum.Sharp ||
+        this.accidental === AccidentalsEnum.None
+      ) {
+        const coord =
+          targetNoteCoordinate - 1 < 0
+            ? notes.length + targetNoteCoordinate - 1
+            : targetNoteCoordinate - 1;
+        return new Note(
+          notes[coord % notes.length] as NoteLetter,
+          AccidentalsEnum.Sharp,
+          targetOctave,
+        );
+      }
+    }
+    /* if (this.accidental === AccidentalsEnum.Flat) {
         return new Note(
           notes[(targetNoteCoordinate + 1) % notes.length] as NoteLetter,
           AccidentalsEnum.Flat,
@@ -130,13 +146,13 @@ export class Note {
           AccidentalsEnum.Sharp,
           targetOctave,
         );
-      }
-    }
+      } else {
+        targetNoteCoordinate = targetNoteCoordinate - 1 < 0 ? notes.length + targetNoteCoordinate - 1 : targetNoteCoordinate - 1;
+        noteLetter = notes[targetNoteCoordinate];
+        accidental = AccidentalsEnum.Sharp;
+      } */
+    // }
 
-    return new Note(
-      noteLetter as NoteLetter,
-      AccidentalsEnum.None,
-      targetOctave,
-    );
+    return new Note(noteLetter as NoteLetter, accidental, targetOctave);
   }
 }
