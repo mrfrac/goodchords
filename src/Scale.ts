@@ -24,14 +24,9 @@ export class Scale {
       }
     });
 
-    // @todo сделать определение знаков альтерации
-    // const isSharps = this.rootNote.accidental === AccidentalsEnum.None || this.rootNote.accidental === AccidentalsEnum.Sharp;
-
     this.formula.forEach((interval) => {
       this.notes.push(this.rootNote.transpose(interval));
     });
-
-    // if (this.rootNote.accidental === AccidentalsEnum.None || this.rootNote.accidental === )
   }
 
   public getNotes(): Note[] {

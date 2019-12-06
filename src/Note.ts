@@ -107,34 +107,36 @@ export class Note {
 
     let targetNoteCoordinate = interval.getPitchClass();
     const intervalOctaves = Math.floor(targetNoteCoordinate / 12);
-    const targetOctave = this.octave + intervalOctaves;
-    const accidental = this.accidental;
+    targetNoteCoordinate = targetNoteCoordinate % notes.length;
+    const targetOctave = (this.octave + intervalOctaves) as Octave;
+    const noteLetter = notes[targetNoteCoordinate];
 
-    if (this.accidental === AccidentalsEnum.Flat) {
-      targetNoteCoordinate += 1;
-    } else if (this.accidental === AccidentalsEnum.Sharp) {
-      targetNoteCoordinate -= 1;
-    }
+    // console.log(this.toString(), interval, targetNoteCoordinate, notes[targetNoteCoordinate]);
 
-    if (targetNoteCoordinate < 0) {
-      targetNoteCoordinate = 12 + targetNoteCoordinate;
-    }
-
-    targetNoteCoordinate = targetNoteCoordinate % 12;
-
-    if (notes[targetNoteCoordinate] === "-") {
+    if (noteLetter === "-") {
       if (this.accidental === AccidentalsEnum.Flat) {
-        targetNoteCoordinate += 1;
+        return new Note(
+          notes[(targetNoteCoordinate + 1) % notes.length] as NoteLetter,
+          AccidentalsEnum.Flat,
+          targetOctave,
+        );
       } else if (this.accidental === AccidentalsEnum.Sharp) {
-        targetNoteCoordinate -= 1;
+        const coord =
+          targetNoteCoordinate - 1 < 0
+            ? notes.length + targetNoteCoordinate - 1
+            : targetNoteCoordinate - 1;
+        return new Note(
+          notes[coord % notes.length] as NoteLetter,
+          AccidentalsEnum.Sharp,
+          targetOctave,
+        );
       }
     }
 
-    // console.log(this.note.toString(), this.accidental, interval.toString(), targetNoteCoordinate, notes[targetNoteCoordinate % 12])
     return new Note(
-      notes[targetNoteCoordinate] as NoteLetter,
-      accidental,
-      targetOctave as Octave,
+      noteLetter as NoteLetter,
+      AccidentalsEnum.None,
+      targetOctave,
     );
   }
 }
