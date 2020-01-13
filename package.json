@@ -12,7 +12,7 @@
     "coverage": "jest --coverage",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit --skipLibCheck",
-    "linter": "tslint --project ."
+    "linter": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
   },
   "keywords": [
     "chord",
@@ -23,8 +23,8 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.14.0",
-    "@typescript-eslint/parser": "^2.14.0",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "coveralls": "^3.0.6",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
