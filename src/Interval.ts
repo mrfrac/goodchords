@@ -1,6 +1,6 @@
 import { INTERVALS } from "./knowledge";
 
-export type TIntervalNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type TIntervalNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
 /**
@@ -47,10 +47,6 @@ export class Interval {
   public constructor(num: TIntervalNumber, quality: TIntervalQuality) {
     this.num = num;
     this.quality = quality;
-
-    if (!this.isValid()) {
-      throw new Error(`Has no interval information: ${this.toString()}`);
-    }
   }
 
   /**
@@ -72,13 +68,27 @@ export class Interval {
    * @returns {boolean}
    */
   public isValid(): boolean {
-    try {
-      this.getPitchClass();
-    } catch (e) {
-      return false;
+    const majorIntervalMask = [0, 1, 1, 0, 0, 1, 1, 0];
+    const augIntervalMask = [1, 1, 1, 1, 1, 1, 1, 0];
+    const dimIntervalMask = [0, 1, 1, 1, 1, 1, 0, 1];
+
+    if (["M", "m"].includes(this.quality)) {
+      return majorIntervalMask[this.num - 1] === 1;
     }
 
-    return true;
+    if (this.quality === "P") {
+      return majorIntervalMask[this.num - 1] === 0;
+    }
+
+    if (this.quality === "A") {
+      return augIntervalMask[this.num - 1] === 1;
+    }
+
+    if (this.quality === "d") {
+      return dimIntervalMask[this.num - 1] === 1;
+    }
+
+    return false;
   }
 
   /**
