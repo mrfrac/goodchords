@@ -100,30 +100,59 @@ export class Note {
     interval =
       typeof interval === "string" ? Interval.fromString(interval) : interval;
 
-    const keys = (() => {
-      const allKeys = Object.keys(NotesEnum);
-      return [
-        ...allKeys.slice(this.index),
-        ...allKeys.slice(0, this.index - 1),
-      ];
-    })();
-    const semitones = interval.getPitchClass();
-    let noteIndex = keys.indexOf(this.note);
-    const intervalOctaves = Math.floor((semitones + noteIndex) / 12);
-    const targetOctave = this.octave + intervalOctaves;
+    const notes = [
+      ...Object.values(NotesEnum).slice(this.index),
+      ...Object.values(NotesEnum).slice(0, this.index),
+    ];
 
-    if (keys[noteIndex] === "-") {
-      if (this.accidental === AccidentalsEnum.Flat) {
-        noteIndex -= 1;
-      } else if (this.accidental === AccidentalsEnum.Sharp) {
-        noteIndex += 1;
+    let targetNoteCoordinate = interval.getPitchClass();
+    const intervalOctaves = Math.floor(targetNoteCoordinate / 12);
+    targetNoteCoordinate = targetNoteCoordinate % notes.length;
+    const targetOctave = (this.octave + intervalOctaves) as Octave;
+    const noteLetter = notes[targetNoteCoordinate];
+    const accidental = this.accidental;
+
+    // console.log(this.toString(), interval, targetNoteCoordinate, notes[targetNoteCoordinate]);
+
+    if (noteLetter === "-") {
+      if (
+        this.accidental === AccidentalsEnum.Sharp ||
+        this.accidental === AccidentalsEnum.None
+      ) {
+        const coord =
+          targetNoteCoordinate - 1 < 0
+            ? notes.length + targetNoteCoordinate - 1
+            : targetNoteCoordinate - 1;
+        return new Note(
+          notes[coord % notes.length] as NoteLetter,
+          AccidentalsEnum.Sharp,
+          targetOctave,
+        );
       }
     }
+    /* if (this.accidental === AccidentalsEnum.Flat) {
+        return new Note(
+          notes[(targetNoteCoordinate + 1) % notes.length] as NoteLetter,
+          AccidentalsEnum.Flat,
+          targetOctave,
+        );
+      } else if (this.accidental === AccidentalsEnum.Sharp) {
+        const coord =
+          targetNoteCoordinate - 1 < 0
+            ? notes.length + targetNoteCoordinate - 1
+            : targetNoteCoordinate - 1;
+        return new Note(
+          notes[coord % notes.length] as NoteLetter,
+          AccidentalsEnum.Sharp,
+          targetOctave,
+        );
+      } else {
+        targetNoteCoordinate = targetNoteCoordinate - 1 < 0 ? notes.length + targetNoteCoordinate - 1 : targetNoteCoordinate - 1;
+        noteLetter = notes[targetNoteCoordinate];
+        accidental = AccidentalsEnum.Sharp;
+      } */
+    // }
 
-    return new Note(
-      keys[(semitones + noteIndex) % 12] as NoteLetter,
-      this.accidental,
-      targetOctave as Octave,
-    );
+    return new Note(noteLetter as NoteLetter, accidental, targetOctave);
   }
 }

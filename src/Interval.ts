@@ -32,8 +32,8 @@ export class Interval {
     throw new Error(`Wrong interval string value: ${name}`);
   }
 
-  private num: TIntervalNumber;
-  private quality: TIntervalQuality;
+  public readonly num: TIntervalNumber;
+  public readonly quality: TIntervalQuality;
 
   /**
    * @param {TIntervalNumber} num - Interval number

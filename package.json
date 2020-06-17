@@ -12,7 +12,7 @@
     "coverage": "jest --coverage",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit --skipLibCheck",
-    "linter": "tslint --project ."
+    "linter": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
   },
   "keywords": [
     "chord",
@@ -22,20 +22,24 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "rollup": "^1.22.0",
-    "rollup-plugin-typescript2": "^0.24.3",
-    "tslib": "^1.10.0",
-    "typescript": "^3.6.3",
-    "@types/jest": "^24.0.18",
-    "coveralls": "^3.0.6",
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "coveralls": "^3.0.11",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "husky": "2.7.0",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
-    "prettier": "^1.18.2",
-    "rimraf": "^3.0.0",
-    "rollup-plugin-uglify": "^6.0.3",
-    "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0"
+    "jest": "^25.3.0",
+    "lint-staged": "^10.1.2",
+    "prettier": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.3.4",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "ts-jest": "^25.3.1",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
