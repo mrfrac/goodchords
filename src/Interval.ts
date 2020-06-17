@@ -64,7 +64,7 @@ export class Interval {
   }
 
   /**
-   * Check interval validity (Interval must be described in knowledge base)
+   * Check interval validity
    * @returns {boolean}
    */
   public isValid(): boolean {
