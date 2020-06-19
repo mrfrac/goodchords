@@ -1,6 +1,5 @@
 import { INTERVALS } from "./knowledge";
 
-export type TIntervalNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
 /**
@@ -24,7 +23,7 @@ export class Interval {
 
     if (tokens && tokens[0]) {
       return new Interval(
-        parseInt(tokens[2], 10) as TIntervalNumber,
+        parseInt(tokens[2], 10),
         tokens[1] as TIntervalQuality,
       );
     }
@@ -32,11 +31,12 @@ export class Interval {
     throw new Error(`Wrong interval string value: ${name}`);
   }
 
-  public readonly num: TIntervalNumber;
+  public readonly num: number;
   public readonly quality: TIntervalQuality;
+  public readonly octaves: number = 0;
 
   /**
-   * @param {TIntervalNumber} num - Interval number
+   * @param {number} num - Interval number
    * @param {TIntervalQuality} quality - Interval quality
    * @example
    * new Interval(1, "P");
@@ -44,8 +44,14 @@ export class Interval {
    * Interval.fromString("P1");
    * @see https://en.wikipedia.org/wiki/Interval_(music)#Interval_number_and_quality
    */
-  public constructor(num: TIntervalNumber, quality: TIntervalQuality) {
-    this.num = num;
+  public constructor(num: number, quality: TIntervalQuality) {
+    if (num / 8 > 1) {
+      this.num = num % 8;
+      this.octaves = Math.trunc(num / 8);
+    } else {
+      this.num = num;
+      this.octaves = 0;
+    }
     this.quality = quality;
   }
 
@@ -70,7 +76,7 @@ export class Interval {
   public isValid(): boolean {
     const majorIntervalMask = [0, 1, 1, 0, 0, 1, 1, 0];
     const augIntervalMask = [1, 1, 1, 1, 1, 1, 1, 0];
-    const dimIntervalMask = [0, 1, 1, 1, 1, 1, 0, 1];
+    const dimIntervalMask = [0, 1, 1, 1, 1, 1, 1, 1];
 
     if (["M", "m"].includes(this.quality)) {
       return majorIntervalMask[this.num - 1] === 1;
