@@ -1,7 +1,7 @@
 import { SCALES } from "../knowledge";
 import { Scale } from "../Scale";
 
-describe("Scale class testing", () => {
+xdescribe("Scale class testing", () => {
   const majorScale = SCALES.find((scale) => scale.names.includes("major"));
   expect(majorScale).toBeDefined();
 
