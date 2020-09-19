@@ -1,5 +1,4 @@
-import { Chord } from "../chord";
-import { NoteLetter } from "../Note";
+import { Chord, NoteLetter } from "../chord";
 
 describe("Chord testing", () => {
   test("Chord throws", () => {
