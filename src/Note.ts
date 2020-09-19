@@ -60,29 +60,45 @@ export class Note {
     const notesDict = "ABCDEFG";
     const targetNoteIndex =
       (notesDict.indexOf(this.note) + interval.num - 1) % notesDict.length;
+
+    const slice = (begin: number, end: number) => {
+      const distancesTmp = [2, 1, 2, 2, 1, 2, 2];
+
+      if (begin > end) {
+        return [...distancesTmp.slice(begin), ...distancesTmp.slice(0, end)];
+      }
+
+      return distancesTmp.slice(begin, end);
+    };
+
+    const distanceToTargetNote = slice(
+      notesDict.indexOf(this.note),
+      targetNoteIndex,
+    ).reduce((prev, current) => current + prev, 0);
+
     const targetNoteLetter = notesDict[targetNoteIndex];
+
     let targetNoteAccidentalIndex = this.accidental.index;
+    if (interval.getPitchClass() > distanceToTargetNote) {
+      targetNoteAccidentalIndex += Math.abs(
+        interval.getPitchClass() - distanceToTargetNote,
+      );
+    } else if (interval.getPitchClass() < distanceToTargetNote) {
+      targetNoteAccidentalIndex -= Math.abs(
+        interval.getPitchClass() - distanceToTargetNote,
+      );
+    }
+
     let targetNoteAccidentalString = "";
 
-    if (interval.quality === "m") {
-      targetNoteAccidentalIndex -= 1;
-    }
-
-    if (interval.quality === "A") {
-      targetNoteAccidentalIndex += 1;
-    }
-
-    if (interval.quality === "d") {
-      targetNoteAccidentalIndex -=
-        interval.num === 4 || interval.num === 5 ? 1 : 2;
-    }
-
     if (targetNoteAccidentalIndex < 0) {
-      targetNoteAccidentalString = "b".repeat(
-        Math.abs(targetNoteAccidentalIndex),
-      );
+      const absoluteAccidentalIndex = Math.abs(targetNoteAccidentalIndex);
+      const num =
+        Math.floor(absoluteAccidentalIndex / 12) +
+        (absoluteAccidentalIndex % 12);
+      targetNoteAccidentalString = "b".repeat(num);
     } else if (targetNoteAccidentalIndex > 0) {
-      targetNoteAccidentalString = "#".repeat(targetNoteAccidentalIndex);
+      targetNoteAccidentalString = "#".repeat(targetNoteAccidentalIndex % 12);
     }
 
     return new Note(

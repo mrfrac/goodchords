@@ -74,27 +74,7 @@ export class Interval {
    * @returns {boolean}
    */
   public isValid(): boolean {
-    const majorIntervalMask = [0, 1, 1, 0, 0, 1, 1, 0];
-    const augIntervalMask = [1, 1, 1, 1, 1, 1, 1, 0];
-    const dimIntervalMask = [0, 1, 1, 1, 1, 1, 1, 1];
-
-    if (["M", "m"].includes(this.quality)) {
-      return majorIntervalMask[this.num - 1] === 1;
-    }
-
-    if (this.quality === "P") {
-      return majorIntervalMask[this.num - 1] === 0;
-    }
-
-    if (this.quality === "A") {
-      return augIntervalMask[this.num - 1] === 1;
-    }
-
-    if (this.quality === "d") {
-      return dimIntervalMask[this.num - 1] === 1;
-    }
-
-    return false;
+    return INTERVALS[this.quality] && INTERVALS[this.quality][this.num] >= 0;
   }
 
   /**

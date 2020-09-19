@@ -1,7 +1,7 @@
 import { SCALES } from "../knowledge";
 import { Scale } from "../Scale";
 
-xdescribe("Scale class testing", () => {
+describe("Scale class testing", () => {
   const majorScale = SCALES.find((scale) => scale.names.includes("major"));
   expect(majorScale).toBeDefined();
 
@@ -28,7 +28,6 @@ xdescribe("Scale class testing", () => {
         "A#4",
       ]);
       scale = new Scale("C#4", majorScale.formula);
-      // console.log(scale.getNotes().map((n) => n.toString()));
       expect(scale.getNotes().map((note) => note.toString())).toEqual([
         "C#4",
         "D#4",
@@ -37,6 +36,16 @@ xdescribe("Scale class testing", () => {
         "G#4",
         "A#4",
         "B#4",
+      ]);
+      scale = new Scale("Db4", majorScale.formula);
+      expect(scale.getNotes().map((note) => note.toString())).toEqual([
+        "Db4",
+        "Eb4",
+        "F4",
+        "Gb4",
+        "Ab4",
+        "Bb4",
+        "C4",
       ]);
     });
   }
