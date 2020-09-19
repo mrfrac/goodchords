@@ -1,4 +1,6 @@
+import { Interval } from "../Interval";
 import { SCALES } from "../knowledge";
+import { Note } from "../Note";
 import { Scale } from "../Scale";
 
 describe("Scale class testing", () => {
@@ -17,7 +19,8 @@ describe("Scale class testing", () => {
         "F#4",
         "G#4",
       ]);
-      scale = new Scale("B", majorScale.formula);
+      const note = Note.fromString("B");
+      scale = new Scale(note, majorScale.formula);
       expect(scale.getNotes().map((note) => note.toString())).toEqual([
         "B4",
         "C#4",
@@ -37,7 +40,10 @@ describe("Scale class testing", () => {
         "A#4",
         "B#4",
       ]);
-      scale = new Scale("Db4", majorScale.formula);
+      const formula = majorScale.formula.map((intervalName) =>
+        Interval.fromString(intervalName as string),
+      );
+      scale = new Scale("Db4", formula);
       expect(scale.getNotes().map((note) => note.toString())).toEqual([
         "Db4",
         "Eb4",

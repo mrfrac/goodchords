@@ -59,10 +59,7 @@ export class Interval {
    * @returns {number} Pitch class
    */
   public getPitchClass(): number {
-    if (
-      INTERVALS.hasOwnProperty(this.quality) &&
-      INTERVALS[this.quality][this.num] >= 0
-    ) {
+    if (this.isValid()) {
       return INTERVALS[this.quality][this.num];
     }
 
