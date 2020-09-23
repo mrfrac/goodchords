@@ -6,5 +6,6 @@ module.exports = {
     "plugin:prettier/recommended",
   ],
   trailingComma: "all",
-  arrowParens: "always"
+  arrowParens: "always",
+  proseWrap: "never"
 }

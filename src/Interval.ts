@@ -1,3 +1,4 @@
+import { never } from "../node_modules/rxjs/index";
 import { INTERVALS } from "./knowledge";
 
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
@@ -17,14 +18,19 @@ export class Interval {
    * @returns {Interval}
    */
   public static fromString(name: string): Interval {
-    const regex = /^([PMmAd]{1})(\d{1,2})$/;
+    const regex = /^(([PMmAd]{1})(\d{1,2}))|((\d{1,2})([PMmAd]{1}))$/;
 
     const tokens = String(name).match(regex);
 
-    if (tokens && tokens[0]) {
+    if (tokens && tokens[1]) {
       return new Interval(
-        parseInt(tokens[2], 10),
-        tokens[1] as TIntervalQuality,
+        parseInt(tokens[3], 10),
+        tokens[2] as TIntervalQuality,
+      );
+    } else if (tokens && tokens[4]) {
+      return new Interval(
+        parseInt(tokens[5], 10),
+        tokens[6] as TIntervalQuality,
       );
     }
 
@@ -58,12 +64,10 @@ export class Interval {
   /**
    * @returns {number} Pitch class
    */
-  public getPitchClass(): number {
+  public getPitchClass(): number | undefined {
     if (this.isValid()) {
       return INTERVALS[this.quality][this.num];
     }
-
-    throw new Error(`Interval ${this.toString()} nas no semitones value`);
   }
 
   /**

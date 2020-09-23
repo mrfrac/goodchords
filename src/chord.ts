@@ -52,8 +52,4 @@ export class Chord {
     this.note = note;
     this.context = context;
   }
-
-  public toString(): string {
-    return `${this.note}${this.context === ChordContextEnum.Minor ? "m" : ""}`;
-  }
 }

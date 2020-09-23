@@ -7,6 +7,15 @@ interface IAccidental {
   index: number;
 }
 
+interface INoteInfo {
+  note: string;
+  octave: number;
+  accidentals: IAccidental;
+}
+
+const NOTES_DICT = "ABCDEFG";
+const NOTES_DISTANCES = [2, 1, 2, 2, 1, 2, 2];
+
 export class Note {
   public static fromString(note: string): Note {
     const regex = /^([a-g]{1})([#b]{1,})?([0-9]{1})?$/i;
@@ -23,14 +32,14 @@ export class Note {
     throw new Error(`Wrong note format: ${note}`);
   }
 
-  private accidental: IAccidental;
+  private accidentals: IAccidental;
 
   public constructor(
     private note: string,
     accidental: string,
     private octave: OctaveType,
   ) {
-    this.accidental = {
+    this.accidentals = {
       asString: accidental || "",
       index: accidental
         ? accidental
@@ -42,11 +51,7 @@ export class Note {
   }
 
   public toString(): string {
-    return `${this.note}${this.accidental.asString}${this.octave}`;
-  }
-
-  public accidentals(): IAccidental {
-    return this.accidental;
+    return `${this.note}${this.accidentals.asString}${this.octave}`;
   }
 
   public transpose(interval: string | Interval): Note {
@@ -60,33 +65,18 @@ export class Note {
     const notesDict = "ABCDEFG";
     const targetNoteIndex =
       (notesDict.indexOf(this.note) + interval.num - 1) % notesDict.length;
-
-    const slice = (begin: number, end: number) => {
-      const distancesTmp = [2, 1, 2, 2, 1, 2, 2];
-
-      if (begin > end) {
-        return [...distancesTmp.slice(begin), ...distancesTmp.slice(0, end)];
-      }
-
-      return distancesTmp.slice(begin, end);
-    };
-
-    const distanceToTargetNote = slice(
-      notesDict.indexOf(this.note),
-      targetNoteIndex,
-    ).reduce((prev, current) => current + prev, 0);
-
     const targetNoteLetter = notesDict[targetNoteIndex];
+    const distanceToTargetNote = Note.fromString(this.note).distanceTo(
+      targetNoteLetter,
+    );
 
-    let targetNoteAccidentalIndex = this.accidental.index;
-    if (interval.getPitchClass() > distanceToTargetNote) {
-      targetNoteAccidentalIndex += Math.abs(
-        interval.getPitchClass() - distanceToTargetNote,
-      );
-    } else if (interval.getPitchClass() < distanceToTargetNote) {
-      targetNoteAccidentalIndex -= Math.abs(
-        interval.getPitchClass() - distanceToTargetNote,
-      );
+    let targetNoteAccidentalIndex = this.accidentals.index;
+    const intervalPitchClass = interval.getPitchClass() || 0;
+    const pitchDifference = Math.abs(intervalPitchClass - distanceToTargetNote);
+    if (intervalPitchClass > distanceToTargetNote) {
+      targetNoteAccidentalIndex += pitchDifference;
+    } else if (intervalPitchClass < distanceToTargetNote) {
+      targetNoteAccidentalIndex -= pitchDifference;
     }
 
     let targetNoteAccidentalString = "";
@@ -106,5 +96,42 @@ export class Note {
       targetNoteAccidentalString,
       this.octave + interval.octaves,
     );
+  }
+
+  public distanceTo(note: Note | string): number {
+    if (typeof note === "string") {
+      note = Note.fromString(note);
+    }
+
+    const slice = (begin: number, end: number) => {
+      if (begin > end) {
+        return [
+          ...NOTES_DISTANCES.slice(begin),
+          ...NOTES_DISTANCES.slice(0, end),
+        ];
+      }
+
+      return NOTES_DISTANCES.slice(begin, end);
+    };
+
+    const distanceToTargetNote = slice(
+      NOTES_DICT.indexOf(this.note),
+      NOTES_DICT.indexOf(note.note),
+    ).reduce((prev, current) => current + prev, 0);
+
+    return (
+      (note.octave - this.octave) * 12 +
+      distanceToTargetNote +
+      note.accidentals.index -
+      this.accidentals.index
+    );
+  }
+
+  public getInfo(): INoteInfo {
+    return {
+      note: this.note,
+      octave: this.octave,
+      accidentals: this.accidentals,
+    };
   }
 }

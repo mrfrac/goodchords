@@ -3,6 +3,7 @@ import { Interval } from "../Interval";
 describe("Interval class testing", () => {
   test("Should correct converse fromString -> toString", () => {
     expect(Interval.fromString("P1").toString()).toBe("P1");
+    expect(Interval.fromString("1P").toString()).toBe("P1");
     expect(Interval.fromString("m7").toString()).toBe("m7");
   });
   test("Should correct construct class instance", () => {
