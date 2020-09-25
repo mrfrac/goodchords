@@ -1,7 +1,6 @@
-import { Interval } from "../Interval";
-import { SCALES } from "../knowledge";
-import { Note } from "../Note";
-import { Scale } from "../Scale";
+import { Interval } from "../interval";
+import { Note } from "../note/note";
+import { Scale } from "./scale";
 
 describe("Scale class testing", () => {
   test("Should correct generate major (ionian) scale", () => {

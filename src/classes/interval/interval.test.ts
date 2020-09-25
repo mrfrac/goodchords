@@ -1,4 +1,4 @@
-import { Interval } from "../Interval";
+import { Interval } from "./interval";
 
 describe("Interval class testing", () => {
   test("Should correct converse fromString -> toString", () => {

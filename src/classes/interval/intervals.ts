@@ -1,14 +1,7 @@
-import { Interval } from "./Interval";
-
 interface IIntervalKnowledge {
   [key: string]: {
     [key: number]: number;
   };
-}
-
-export interface IScaleKnowledge {
-  formula: Array<Interval | string>;
-  names: string[];
 }
 
 export const INTERVALS: IIntervalKnowledge = {
@@ -49,10 +42,3 @@ export const INTERVALS: IIntervalKnowledge = {
     7: 10,
   },
 };
-
-export const SCALES: IScaleKnowledge[] = [
-  {
-    formula: ["P1", "M2", "M3", "P4", "P5", "M6", "M7"],
-    names: ["major", "ionian"],
-  },
-];

@@ -1,4 +1,4 @@
-import { Note } from "../Note";
+import { Note } from "./note";
 
 describe("Note class testing", () => {
   test("Should throw error", () => {

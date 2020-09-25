@@ -1,17 +1,5 @@
-import { Interval } from "./Interval";
-
-export type OctaveType = number;
-
-interface IAccidental {
-  asString: string;
-  index: number;
-}
-
-interface INoteInfo {
-  note: string;
-  octave: number;
-  accidentals: IAccidental;
-}
+import { Interval } from "../interval/index";
+import { IAccidental, INoteInfo } from "./interfaces";
 
 const NOTES_DICT = "ABCDEFG";
 const NOTES_DISTANCES = [2, 1, 2, 2, 1, 2, 2];
@@ -24,7 +12,7 @@ export class Note {
 
     if (tokens) {
       const noteLetter = String(tokens[1]).toUpperCase();
-      const octave = (parseInt(tokens[3], 10) as OctaveType) || 4;
+      const octave = parseInt(tokens[3], 10) || 4;
       return new Note(noteLetter, tokens[2], octave);
     }
 
@@ -37,7 +25,7 @@ export class Note {
   public constructor(
     private note: string,
     accidental: string,
-    private octave: OctaveType,
+    private octave: number,
   ) {
     this.accidentals = {
       asString: accidental || "",

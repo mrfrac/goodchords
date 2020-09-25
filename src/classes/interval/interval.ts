@@ -1,5 +1,4 @@
-import { never } from "../node_modules/rxjs/index";
-import { INTERVALS } from "./knowledge";
+import { INTERVALS } from "./intervals";
 
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
