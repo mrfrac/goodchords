@@ -36,9 +36,11 @@ export class Interval {
     throw new Error(`Wrong interval string value: ${name}`);
   }
 
-  public readonly num: number;
   public readonly quality: TIntervalQuality;
   public readonly octaves: number = 0;
+  public readonly num: number;
+  private isValidValue = false;
+  private semitonesValue = 0;
 
   /**
    * @param {number} num - Interval number
@@ -50,22 +52,54 @@ export class Interval {
    * @see https://en.wikipedia.org/wiki/Interval_(music)#Interval_number_and_quality
    */
   public constructor(num: number, quality: TIntervalQuality) {
-    if (num / 8 > 1) {
-      this.num = num % 8;
-      this.octaves = Math.trunc(num / 8);
-    } else {
-      this.num = num;
-      this.octaves = 0;
-    }
+    this.num = num;
+    this.octaves = Math.floor((Math.abs(this.num) - 1) / 7); //num > 8 ? Math.trunc(num / 8) : 0;
     this.quality = quality;
+
+    if (INTERVALS[this.quality]) {
+      const simpleIntervals = Object.keys(INTERVALS[this.quality]).map(
+        (key) => +key,
+      );
+
+      if (this.num <= simpleIntervals[simpleIntervals.length - 1]) {
+        if (simpleIntervals.includes(this.num)) {
+          this.semitonesValue = INTERVALS[this.quality][this.num];
+          this.isValidValue = true;
+        }
+      } else {
+        let correction = 0;
+
+        const mpSizes = [
+          ...Object.values(INTERVALS.M),
+          ...Object.values(INTERVALS.P),
+        ].sort((a, b) => a - b);
+        const step = (Math.abs(this.num) - 1) % 7;
+
+        switch (this.quality) {
+          case "A":
+            correction = 1;
+            break;
+          case "m":
+            correction = [1, 2, 5, 6].includes(step) ? -1 : 0;
+            break;
+          case "d":
+            correction = -1 * ([0, 3, 4].includes(step) ? 1 : 2);
+            break;
+        }
+
+        this.semitonesValue = mpSizes[step] + correction + 12 * this.octaves;
+
+        this.isValidValue = !isNaN(this.semitonesValue);
+      }
+    }
   }
 
   /**
    * @returns {number} Pitch class
    */
-  public getPitchClass(): number | undefined {
+  public semitones(): number | undefined {
     if (this.isValid()) {
-      return INTERVALS[this.quality][this.num];
+      return this.semitonesValue;
     }
   }
 
@@ -74,7 +108,7 @@ export class Interval {
    * @returns {boolean}
    */
   public isValid(): boolean {
-    return INTERVALS[this.quality] && INTERVALS[this.quality][this.num] >= 0;
+    return this.isValidValue;
   }
 
   /**
@@ -86,5 +120,9 @@ export class Interval {
    */
   public toString(): string {
     return `${this.quality}${this.num}`;
+  }
+
+  public is_compound(): boolean {
+    return this.num > 8;
   }
 }

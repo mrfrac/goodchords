@@ -10,22 +10,22 @@ describe("Scale class testing", () => {
     expect(scale.getNotes().map((note) => note.toString())).toEqual([
       "A4",
       "B4",
-      "C#4",
-      "D4",
-      "E4",
-      "F#4",
-      "G#4",
+      "C#5",
+      "D5",
+      "E5",
+      "F#5",
+      "G#5",
     ]);
     const note = Note.fromString("B");
     scale = new Scale(note, majorScaleFormula);
     expect(scale.getNotes().map((note) => note.toString())).toEqual([
       "B4",
-      "C#4",
-      "D#4",
-      "E4",
-      "F#4",
-      "G#4",
-      "A#4",
+      "C#5",
+      "D#5",
+      "E5",
+      "F#5",
+      "G#5",
+      "A#5",
     ]);
     scale = new Scale("C#4", majorScaleFormula);
     expect(scale.getNotes().map((note) => note.toString())).toEqual([
@@ -48,7 +48,7 @@ describe("Scale class testing", () => {
       "Gb4",
       "Ab4",
       "Bb4",
-      "C4",
+      "C5",
     ]);
   });
 
@@ -63,7 +63,7 @@ describe("Scale class testing", () => {
       "Gb4",
       "Ab4",
       "Bbb4",
-      "C4",
+      "C5",
     ]);
 
     scale = new Scale("F#4", formula);
@@ -72,9 +72,9 @@ describe("Scale class testing", () => {
       "G#4",
       "A4",
       "B4",
-      "C#4",
-      "D4",
-      "E#4",
+      "C#5",
+      "D5",
+      "E#5",
     ]);
   });
 
@@ -87,7 +87,7 @@ describe("Scale class testing", () => {
       "Fb4",
       "Gb4",
       "Ab4",
-      "Cb4",
+      "Cb5",
     ]);
 
     scale = new Scale("C#4", formula);
@@ -118,7 +118,7 @@ describe("Scale class testing", () => {
       "F4",
       "G4",
       "Bb4",
-      "C4",
+      "C5",
     ]);
   });
 });
