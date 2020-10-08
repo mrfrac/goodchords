@@ -1,4 +1,4 @@
-import { Note } from "../..";
+import { Note } from "../note";
 import { Interval } from "../interval";
 
 export class Scale {
