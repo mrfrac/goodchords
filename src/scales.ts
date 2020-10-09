@@ -1,4 +1,4 @@
-import { Interval } from "./classes/interval";
+import { Interval } from "./interval";
 
 export interface IScaleKnowledge {
   formula: Array<Interval | string>;
