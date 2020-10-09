@@ -16,21 +16,6 @@ describe("Note class testing", () => {
     expect(Note.fromString("Ab4").toString()).toBe("Ab4");
   });
 
-  test("Should be correct construct note", () => {
-    const n1 = new Note("A", "", 3);
-    expect(n1.toString()).toBe("A3");
-    expect(n1.getInfo().accidentals.asString).toBe("");
-    expect(n1.getInfo().accidentals.index).toBe(0);
-    const n2 = new Note("B", "bb", 7);
-    expect(n2.toString()).toBe("Bbb7");
-    expect(n2.getInfo().accidentals.asString).toBe("bb");
-    expect(n2.getInfo().accidentals.index).toBe(-2);
-    const n3 = new Note("B", "##", 8);
-    expect(n3.toString()).toBe("B##8");
-    expect(n3.getInfo().accidentals.asString).toBe("##");
-    expect(n3.getInfo().accidentals.index).toBe(2);
-  });
-
   describe("Transpose testing", () => {
     test("Major intervals", () => {
       expect(Note.fromString("C").transpose("M2").toString()).toBe("D4");
