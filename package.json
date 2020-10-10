@@ -1,9 +1,12 @@
 {
   "name": "goodchords",
+  "repository": "git@github.com:mrfrac/goodchords.git",
+  "author": "mrfrac <fracturer@gmail.com>",
   "version": "0.0.1",
   "description": "Some description here ;)",
   "main": "dist/goodchords.cjs.js",
   "module": "dist/goodchords.es.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "npm run clean && rollup -c",
@@ -41,6 +44,9 @@
     "tslib": "^2.0.2",
     "typescript": "^4.0.3"
   },
+  "files": [
+    "dist"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
