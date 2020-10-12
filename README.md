@@ -20,7 +20,7 @@ const note = new Note("A", "#", 4);
 // or
 const note = Note.fromString("A#4");
 note.transpose("M3").toString(); // C##5
-note.toString(); // "A#4"
+note.toString(); // A#4
 note.frequency(); // 466.16
 note.distanceTo("A#5"); // 12
 note.number(); // 58
@@ -31,11 +31,11 @@ note.number(); // 58
 ```js
 const interval = new Interval(8, "P");
 // or
-const interval = Interval.fromString("8P"); // or "P8"
+const interval = Interval.fromString("8P"); // or P8
 interval.semitones(); // 12
 interval.isValid(); // true
 interval.is_compound(); // false
-note.transpose(interval);
+Note.fromString("A4").transpose(interval).toString(); // A5
 ```
 
 ### Scale
