@@ -1,3 +1,8 @@
+/**
+ * Internal API class for note letters
+ * @private
+ * @class
+ */
 export class NoteLetter {
   public readonly letter: string;
   public readonly index: number;
