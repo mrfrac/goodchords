@@ -3,18 +3,18 @@ import { INTERVALS } from "./intervals";
 export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
 
 /**
- * Simple Music Interval class realisation
- * @todo
- *  - Move knowledge to knowledge
+ * Simple Music Interval realization
  * @see https://en.wikipedia.org/wiki/Interval_(music)
+ * @public
+ * @class
  */
 export class Interval {
   /**
    * String to Interval conversion
    * @todo Improve regex
    * @throws {Error} If invalid interval string value passed
-   * @param {string} name - Interval string value (P1, ...)
-   * @returns {Interval}
+   * @param {string} name Interval string value (P1 or 1P, etc)
+   * @return Interval instance
    */
   public static fromString(name: string): Interval {
     const regex = /^(([PMmAd]{1})(\d{1,2}))|((\d{1,2})([PMmAd]{1}))$/;
@@ -47,7 +47,7 @@ export class Interval {
    * @param {TIntervalQuality} quality - Interval quality
    * @example
    * new Interval(1, "P");
-   * @example
+   * // same:
    * Interval.fromString("P1");
    * @see https://en.wikipedia.org/wiki/Interval_(music)#Interval_number_and_quality
    */
@@ -95,7 +95,7 @@ export class Interval {
   }
 
   /**
-   * @returns {number} Pitch class
+   * @returns {number | undefined} Semitones value
    */
   public semitones(): number | undefined {
     if (this.isValid()) {
@@ -114,15 +114,17 @@ export class Interval {
   /**
    * Interval to string conversion
    * @example
-   * // returns P1
-   * new Interval(1, "P").toString();
-   * @returns {string}
+   * new Interval(1, "P").toString(); // "P1"
+   * @returns String represenation of interval
    */
   public toString(): string {
     return `${this.quality}${this.num}`;
   }
 
-  public is_compound(): boolean {
+  /**
+   * Сhecks if the interval is compound.
+   */
+  public isCompound(): boolean {
     return this.num > 8;
   }
 }

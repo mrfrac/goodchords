@@ -1,10 +1,12 @@
-interface IIntervalKnowledge {
-  [key: string]: {
+export type TIntervalQuality = "P" | "M" | "m" | "A" | "d";
+
+type TIntervalKnowledge = {
+  [key in TIntervalQuality]: {
     [key: number]: number;
   };
-}
+};
 
-export const INTERVALS: IIntervalKnowledge = {
+export const INTERVALS: TIntervalKnowledge = {
   A: {
     1: 1,
     2: 3,

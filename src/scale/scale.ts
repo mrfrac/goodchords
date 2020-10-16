@@ -1,11 +1,24 @@
 import { Note } from "../note";
 import { Interval } from "../interval";
 
+/**
+ * Scale class
+ * @example
+ *  new Scale("A4", ["P1", "M2", "M3", "P4", "P5", "M6", "M7"])
+ *  new Scale(new Note("A", "", 4), "P1", "M2", "M3", "P4", "P5", "M6", "M7")
+ * @public
+ * @class
+ */
 export class Scale {
   private rootNote: Note;
   private formula: Interval[] = [];
   private notes: Note[] = [];
 
+  /**
+   * Scale constructor
+   * @param {string | Note } rootNote
+   * @param {Array<Interval | string>} formula
+   */
   public constructor(
     rootNote: string | Note,
     formula: Array<Interval | string>,
@@ -29,6 +42,10 @@ export class Scale {
     });
   }
 
+  /**
+   * Calculated note for scale
+   * @returns {Note[]}
+   */
   public getNotes(): Note[] {
     return this.notes;
   }
