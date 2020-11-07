@@ -34,7 +34,7 @@ const interval = new Interval(8, "P");
 const interval = Interval.fromString("8P"); // or P8
 interval.semitones(); // 12
 interval.isValid(); // true
-interval.is_compound(); // false
+interval.isCompound(); // false
 Note.fromString("A4").transpose(interval).toString(); // A5
 ```
 
