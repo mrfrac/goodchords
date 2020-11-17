@@ -121,4 +121,15 @@ describe("Scale class testing", () => {
       "C5",
     ]);
   });
+
+  test("Should correct build scale by name", () => {
+    expect(new Scale("A4", "ionian").getNotes().length).toBe(7);
+    expect(new Scale("A4", "1iosnianasdfadg%^&").getNotes().length).toBe(0);
+  });
+
+  test("Should correct build scale by alternative name", () => {
+    expect(
+      new Scale("A4", "Diminished (wholetone - halftone)").getNotes().length,
+    ).toBe(7);
+  });
 });
