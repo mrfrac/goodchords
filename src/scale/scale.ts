@@ -1,6 +1,7 @@
 import { Note } from "../note";
 import { Interval } from "../interval";
 import { SCALES_LIB } from "./lib";
+import { IScale } from "./interfaces";
 
 /**
  * Scale class
@@ -12,6 +13,7 @@ import { SCALES_LIB } from "./lib";
  * @class
  */
 export class Scale {
+  private scaleInfo?: IScale;
   private rootNote: Note;
   private formula: Interval[] = [];
   private notes: Note[] = [];
@@ -34,16 +36,8 @@ export class Scale {
     let formula: Array<string | Interval> = [];
 
     if (typeof scale === "string") {
-      formula =
-        SCALES_LIB.find(
-          (item) =>
-            item.name.toLowerCase() === scale.toLowerCase() ||
-            item.altNames
-              ?.map((altName) => altName.toLowerCase())
-              ?.indexOf(scale.toLowerCase()) ||
-            -1 >= 0,
-        )?.formula || [];
-      console.log(scale, formula);
+      this.scaleInfo = this.getScaleByName(scale);
+      formula = this.scaleInfo?.formula || [];
     } else {
       formula = scale;
     }
@@ -56,6 +50,8 @@ export class Scale {
       }
     });
 
+    this.scaleInfo = this.getScaleByFormula(this.formula);
+
     this.formula.forEach((interval) => {
       this.notes.push(this.rootNote.transpose(interval));
     });
@@ -67,5 +63,45 @@ export class Scale {
    */
   public getNotes(): Note[] {
     return this.notes;
+  }
+
+  /**
+   * Returns scale description
+   * @returns {IScale | undefined}
+   */
+  public getScaleInfo(): IScale | undefined {
+    return this.scaleInfo;
+  }
+
+  /**
+   * Find scale by name
+   * @param {string} name
+   * @returns {IScale | undefined}
+   */
+  private getScaleByName(name: string): IScale | undefined {
+    name = name.toLowerCase();
+    return SCALES_LIB.find((scale) => {
+      if (scale.name.toLowerCase() === name) {
+        return true;
+      } else if (scale.altNames) {
+        return scale.altNames.some((altName) => altName.toLowerCase() === name);
+      }
+      return false;
+    });
+  }
+
+  /**
+   * Find scale by formula
+   * @param {Interval[]} formula
+   * @returns {IScale | undefined}
+   */
+  private getScaleByFormula(formula: Interval[]): IScale | undefined {
+    const formulaHash = formula
+      .map((interval) => `${interval.num}${interval.quality}`)
+      .join("");
+    return SCALES_LIB.find((scale) => {
+      const scaleFormulaHash = scale.formula.join("");
+      return scaleFormulaHash === formulaHash;
+    });
   }
 }

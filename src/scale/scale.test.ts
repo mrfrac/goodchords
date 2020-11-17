@@ -98,6 +98,8 @@ describe("Scale class testing", () => {
       "G#4",
       "B4",
     ]);
+
+    expect(scale.getScaleInfo()?.name).toBe("Pentatonic minor");
   });
 
   test("Should correct generate major pentatonic scale", () => {
@@ -123,13 +125,15 @@ describe("Scale class testing", () => {
   });
 
   test("Should correct build scale by name", () => {
-    expect(new Scale("A4", "ionian").getNotes().length).toBe(7);
+    expect(new Scale("A4", "Major").getNotes().length).toBe(7);
     expect(new Scale("A4", "1iosnianasdfadg%^&").getNotes().length).toBe(0);
+    expect(new Scale("A4", "ionian").getScaleInfo()?.name).toBe("Major");
+    expect(new Scale("A4", ["1P"]).getScaleInfo()).toBeUndefined();
   });
 
   test("Should correct build scale by alternative name", () => {
     expect(
       new Scale("A4", "Diminished (wholetone - halftone)").getNotes().length,
-    ).toBe(7);
+    ).toBe(8);
   });
 });
