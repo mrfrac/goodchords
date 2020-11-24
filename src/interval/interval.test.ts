@@ -2,13 +2,13 @@ import { Interval } from "./interval";
 
 describe("Interval class testing", () => {
   test("Should correct converse fromString -> toString", () => {
-    expect(Interval.fromString("P1").toString()).toBe("P1");
-    expect(Interval.fromString("1P").toString()).toBe("P1");
-    expect(Interval.fromString("m7").toString()).toBe("m7");
+    expect(Interval.fromString("P1").toString()).toBe("1P");
+    expect(Interval.fromString("1P").toString()).toBe("1P");
+    expect(Interval.fromString("m7").toString()).toBe("7m");
   });
   test("Should correct construct class instance", () => {
     const interval = new Interval(1, "P");
-    expect(interval.toString()).toBe("P1");
+    expect(interval.toString()).toBe("1P");
   });
   test("Should throw error on bad interval name", () => {
     expect(() => {

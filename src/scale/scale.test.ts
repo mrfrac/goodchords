@@ -90,7 +90,7 @@ describe("Scale class testing", () => {
       "Cb5",
     ]);
 
-    scale = new Scale("C#4", formula);
+    scale = new Scale("C#4", formula, true);
     expect(scale.getNotes().map((note) => note.toString())).toEqual([
       "C#4",
       "E4",
@@ -98,6 +98,11 @@ describe("Scale class testing", () => {
       "G#4",
       "B4",
     ]);
+
+    expect(scale.getScaleInfo()?.name).toBe("Pentatonic minor");
+
+    const scaleWithoutInfo = new Scale("C#4", formula);
+    expect(scaleWithoutInfo.getScaleInfo()?.name).toBeUndefined();
   });
 
   test("Should correct generate major pentatonic scale", () => {
@@ -120,5 +125,18 @@ describe("Scale class testing", () => {
       "Bb4",
       "C5",
     ]);
+  });
+
+  test("Should correct build scale by name", () => {
+    expect(new Scale("A4", "Major").getNotes().length).toBe(7);
+    expect(new Scale("A4", "1iosnianasdfadg%^&").getNotes().length).toBe(0);
+    expect(new Scale("A4", "ionian").getScaleInfo()?.name).toBe("Major");
+    expect(new Scale("A4", ["1P"]).getScaleInfo()).toBeUndefined();
+  });
+
+  test("Should correct build scale by alternative name", () => {
+    expect(
+      new Scale("A4", "Diminished (wholetone - halftone)").getNotes().length,
+    ).toBe(8);
   });
 });

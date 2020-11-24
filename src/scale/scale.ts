@@ -1,15 +1,19 @@
 import { Note } from "../note";
 import { Interval } from "../interval";
+import { SCALES_LIB } from "./lib";
+import { IScale } from "./interfaces";
 
 /**
  * Scale class
  * @example
  *  new Scale("A4", ["P1", "M2", "M3", "P4", "P5", "M6", "M7"])
+ *  new Scale("A5", "major");
  *  new Scale(new Note("A", "", 4), "P1", "M2", "M3", "P4", "P5", "M6", "M7")
  * @public
  * @class
  */
 export class Scale {
+  private scaleInfo?: IScale;
   private rootNote: Note;
   private formula: Interval[] = [];
   private notes: Note[] = [];
@@ -17,16 +21,38 @@ export class Scale {
   /**
    * Scale constructor
    * @param {string | Note } rootNote
-   * @param {Array<Interval | string>} formula
+   * @param {Array<Interval | string>} scale Scale formula or name
+   * @op
    */
+  public constructor(rootNote: string | Note, scale: string);
   public constructor(
     rootNote: string | Note,
-    formula: Array<Interval | string>,
+    scale: Array<Interval>,
+    find?: boolean,
+  );
+  public constructor(
+    rootNote: string | Note,
+    scale: Array<string>,
+    find?: boolean,
+  );
+  public constructor(
+    rootNote: string | Note,
+    scale: Array<Interval | string> | string,
+    find = false,
   ) {
     if (typeof rootNote === "string") {
       this.rootNote = Note.fromString(rootNote);
     } else {
       this.rootNote = rootNote;
+    }
+
+    let formula: Array<string | Interval> = [];
+
+    if (typeof scale === "string") {
+      this.scaleInfo = this.getScaleByName(scale);
+      formula = this.scaleInfo?.formula || [];
+    } else {
+      formula = scale;
     }
 
     formula.forEach((interval) => {
@@ -36,6 +62,10 @@ export class Scale {
         this.formula.push(interval);
       }
     });
+
+    if (find) {
+      this.scaleInfo = this.getScaleByFormula(this.formula);
+    }
 
     this.formula.forEach((interval) => {
       this.notes.push(this.rootNote.transpose(interval));
@@ -48,5 +78,43 @@ export class Scale {
    */
   public getNotes(): Note[] {
     return this.notes;
+  }
+
+  /**
+   * Returns scale description
+   * @returns {IScale | undefined}
+   */
+  public getScaleInfo(): IScale | undefined {
+    return this.scaleInfo;
+  }
+
+  /**
+   * Find scale by name
+   * @param {string} name
+   * @returns {IScale | undefined}
+   */
+  private getScaleByName(name: string): IScale | undefined {
+    name = name.toLowerCase();
+    return SCALES_LIB.find((scale) => {
+      if (scale.name.toLowerCase() === name) {
+        return true;
+      } else if (scale.altNames) {
+        return scale.altNames.some((altName) => altName.toLowerCase() === name);
+      }
+      return false;
+    });
+  }
+
+  /**
+   * Find scale by formula
+   * @param {Interval[]} formula
+   * @returns {IScale | undefined}
+   */
+  private getScaleByFormula(formula: Interval[]): IScale | undefined {
+    const formulaHash = formula.map((interval) => interval.toString()).join("");
+    return SCALES_LIB.find((scale) => {
+      const scaleFormulaHash = scale.formula.join("");
+      return scaleFormulaHash === formulaHash;
+    });
   }
 }
