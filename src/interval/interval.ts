@@ -98,9 +98,7 @@ export class Interval {
    * @returns {number | undefined} Semitones value
    */
   public semitones(): number | undefined {
-    if (this.isValid()) {
-      return this.semitonesValue;
-    }
+    return this.isValid() ? this.semitonesValue : undefined;
   }
 
   /**
@@ -118,7 +116,7 @@ export class Interval {
    * @returns String represenation of interval
    */
   public toString(): string {
-    return `${this.quality}${this.num}`;
+    return `${this.num}${this.quality}`;
   }
 
   /**

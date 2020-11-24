@@ -22,10 +22,23 @@ export class Scale {
    * Scale constructor
    * @param {string | Note } rootNote
    * @param {Array<Interval | string>} scale Scale formula or name
+   * @op
    */
+  public constructor(rootNote: string | Note, scale: string);
+  public constructor(
+    rootNote: string | Note,
+    scale: Array<Interval>,
+    find?: boolean,
+  );
+  public constructor(
+    rootNote: string | Note,
+    scale: Array<string>,
+    find?: boolean,
+  );
   public constructor(
     rootNote: string | Note,
     scale: Array<Interval | string> | string,
+    find = false,
   ) {
     if (typeof rootNote === "string") {
       this.rootNote = Note.fromString(rootNote);
@@ -50,7 +63,9 @@ export class Scale {
       }
     });
 
-    this.scaleInfo = this.getScaleByFormula(this.formula);
+    if (find) {
+      this.scaleInfo = this.getScaleByFormula(this.formula);
+    }
 
     this.formula.forEach((interval) => {
       this.notes.push(this.rootNote.transpose(interval));
@@ -96,9 +111,7 @@ export class Scale {
    * @returns {IScale | undefined}
    */
   private getScaleByFormula(formula: Interval[]): IScale | undefined {
-    const formulaHash = formula
-      .map((interval) => `${interval.num}${interval.quality}`)
-      .join("");
+    const formulaHash = formula.map((interval) => interval.toString()).join("");
     return SCALES_LIB.find((scale) => {
       const scaleFormulaHash = scale.formula.join("");
       return scaleFormulaHash === formulaHash;

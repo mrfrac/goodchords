@@ -90,7 +90,7 @@ describe("Scale class testing", () => {
       "Cb5",
     ]);
 
-    scale = new Scale("C#4", formula);
+    scale = new Scale("C#4", formula, true);
     expect(scale.getNotes().map((note) => note.toString())).toEqual([
       "C#4",
       "E4",
@@ -100,6 +100,9 @@ describe("Scale class testing", () => {
     ]);
 
     expect(scale.getScaleInfo()?.name).toBe("Pentatonic minor");
+
+    const scaleWithoutInfo = new Scale("C#4", formula);
+    expect(scaleWithoutInfo.getScaleInfo()?.name).toBeUndefined();
   });
 
   test("Should correct generate major pentatonic scale", () => {
