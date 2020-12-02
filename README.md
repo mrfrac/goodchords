@@ -48,3 +48,7 @@ const ionian = new Scale("C", "ionian");
 ionian.getNotes().map((note) => note.toString()); // ["C4", "D4", "E4", "F4", "G4", "A4", "B4", ]
 ionian.getScaleInfo(); // { name: "Major", formula: "<...>", altNames: ["Bilaval theta", "Ethiopian (A raray)", "Ionian", "Mela Dhirasankarabharana (29)", ]}
 ```
+
+### Chords
+
+Coming soon ...
