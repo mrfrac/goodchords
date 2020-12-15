@@ -95,10 +95,10 @@ export class Interval {
   }
 
   /**
-   * @returns {number | undefined} Semitones value
+   * @returns {number} Semitones value
    */
-  public semitones(): number | undefined {
-    return this.isValid() ? this.semitonesValue : undefined;
+  public semitones(): number {
+    return this.semitonesValue;
   }
 
   /**

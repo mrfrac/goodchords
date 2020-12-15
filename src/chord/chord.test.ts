@@ -1,3 +1,5 @@
+import { Interval } from "../interval";
+import { Note } from "../note";
 import { Chord } from "./chord";
 
 describe("Chord class testing", () => {
@@ -5,10 +7,29 @@ describe("Chord class testing", () => {
     expect(() => {
       Chord.fromString("zz");
     }).toThrow();
+
+    expect(Chord.fromString("Az").getNotes()).toEqual([]);
+
+    expect(
+      new Chord("A", [Interval.fromString("P1")])
+        .getNotes()
+        .map((note) => note.toString()),
+    ).toEqual(["A4"]);
+
+    expect(new Chord("A", {} as any).getNotes()).toEqual([]);
   });
 
   test("should properly construct chord from string", () => {
     const chord = Chord.fromString("Am");
+    expect(chord.getNotes().map((note) => note.toString())).toEqual([
+      "A4",
+      "C5",
+      "E5",
+    ]);
+  });
+
+  test("should properly construct chord from Note object", () => {
+    const chord = new Chord(Note.fromString("A"), "m");
     expect(chord.getNotes().map((note) => note.toString())).toEqual([
       "A4",
       "C5",
