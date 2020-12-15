@@ -51,4 +51,9 @@ ionian.getScaleInfo(); // { name: "Major", formula: "<...>", altNames: ["Bilaval
 
 ### Chords
 
-Coming soon ...
+```js
+const chord = new Chord("C", "m");
+// or
+const chord = Chord.fromString("Cm");
+chord.getNotes(); // ["C4", "Eb4", "G4"]
+```

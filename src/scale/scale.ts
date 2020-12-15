@@ -27,14 +27,10 @@ export class Scale {
   public constructor(rootNote: string | Note, scale: string);
   public constructor(
     rootNote: string | Note,
-    scale: Array<Interval>,
+    scale: Interval[],
     find?: boolean,
   );
-  public constructor(
-    rootNote: string | Note,
-    scale: Array<string>,
-    find?: boolean,
-  );
+  public constructor(rootNote: string | Note, scale: string[], find?: boolean);
   public constructor(
     rootNote: string | Note,
     scale: Array<Interval | string> | string,
