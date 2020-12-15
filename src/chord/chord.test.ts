@@ -14,12 +14,6 @@ describe("Chord class testing", () => {
       "C5",
       "E5",
     ]);
-    const chord2 = Chord.fromString("Cm");
-    expect(chord2.getNotes().map((note) => note.toString())).toEqual([
-      "A4",
-      "C5",
-      "E5",
-    ]);
   });
 
   test("should generate major chord", () => {
