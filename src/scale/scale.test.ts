@@ -1,3 +1,4 @@
+import { Chord } from "../chord";
 import { Interval } from "../interval";
 import { Note } from "../note/note";
 import { Scale } from "./scale";
@@ -138,5 +139,33 @@ describe("Scale class testing", () => {
     expect(
       new Scale("A4", "Diminished (wholetone - halftone)").getNotes().length,
     ).toBe(8);
+  });
+
+  test("Should correct check for included notes", () => {
+    const scale = new Scale("C#4", ["P1", "M2", "M3", "P5", "M6"]);
+    expect(scale.includes("D#")).toBeTruthy();
+    expect(scale.includes("Eb")).toBeTruthy();
+    expect(scale.includes("G#7")).toBeTruthy();
+    expect(scale.includes("B")).toBeFalsy();
+  });
+
+  test("Should correct generate chords", () => {
+    const formula = ["P1", "M2", "M3", "P4", "P5", "6M", "7M"];
+
+    const scale = new Scale("C", formula);
+
+    const levels = scale.getChords();
+
+    const chordsSimplify = (chords: Chord[]): string[] => {
+      return chords.map((chord) => chord.toString());
+    };
+
+    expect(chordsSimplify(levels[0]).includes("Cmaj")).toBeTruthy();
+    expect(chordsSimplify(levels[1]).includes("Dm")).toBeTruthy();
+    expect(chordsSimplify(levels[2]).includes("Em")).toBeTruthy();
+    expect(chordsSimplify(levels[3]).includes("Fmaj")).toBeTruthy();
+    expect(chordsSimplify(levels[4]).includes("Gmaj")).toBeTruthy();
+    expect(chordsSimplify(levels[5]).includes("Am")).toBeTruthy();
+    expect(chordsSimplify(levels[6]).includes("Bdim")).toBeTruthy();
   });
 });

@@ -14,6 +14,8 @@ describe("Note class testing", () => {
     const db5 = Note.fromString("db5");
     expect(db5.toString()).toBe("Db5");
     expect(Note.fromString("Ab4").toString()).toBe("Ab4");
+
+    expect(Note.fromString("C#8").toString(true)).toBe("C#");
   });
 
   describe("Transpose testing", () => {

@@ -69,10 +69,13 @@ export class Note {
    * Note string represenation
    * @example
    *  new Note("C", "###", 3).toString(); // "C###3"
+   *  new Note("C", "#", 8).toString(true) // "C#"
+   * @param {boolean} withoutOctave
    * @returns Note string represenation
    */
-  public toString(): string {
-    return `${this.noteLetter}${this.accidentals.asString}${this.octave}`;
+  public toString(withoutOctave = false): string {
+    const octave = withoutOctave ? "" : this.octave;
+    return `${this.noteLetter}${this.accidentals.asString}${octave}`;
   }
 
   /**
