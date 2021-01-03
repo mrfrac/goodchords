@@ -1,6 +1,7 @@
 import { Interval } from "../interval";
 import { Note } from "../note";
 import { Scale } from "../scale";
+import { IChordInfo } from "./interfaces";
 
 import { findChordByName } from "./lib";
 
@@ -21,32 +22,44 @@ export class Chord {
 
   private note: Note;
   private notes: Note[] = [];
-  private formula: Interval[];
+  private info: IChordInfo = {
+    abbreviation: [],
+    formula: [],
+    name: "",
+  };
 
   public constructor(note: Note | string, chordName: string);
   public constructor(note: Note | string, formula: string[]);
   public constructor(note: Note | string, formula: Interval[]);
+  public constructor(note: Note | string, chordInfo: IChordInfo);
   public constructor(note: Note | string, formula: unknown) {
     this.note = typeof note === "string" ? Note.fromString(note) : note;
 
     if (typeof formula === "string") {
       const chordData = findChordByName(formula);
-      this.formula =
-        chordData?.formula?.map((interval) => Interval.fromString(interval)) ||
-        [];
+
+      if (chordData) {
+        this.info = chordData;
+      }
+    } else if (Array.isArray(formula)) {
+      this.info.formula = formula.map((interval: string | Interval) =>
+        typeof interval !== "string" ? interval.toString() : interval,
+      );
     } else {
-      this.formula = Array.isArray(formula)
-        ? formula.map((interval: string | Interval) =>
-            typeof interval === "string"
-              ? Interval.fromString(interval)
-              : interval,
-          )
-        : [];
+      //  if (typeof formula === "object")
+      this.info = formula as IChordInfo;
     }
-    this.notes = new Scale(this.note, this.formula).getNotes();
+    this.notes = new Scale(this.note, this.info.formula || []).getNotes();
   }
 
   public getNotes(): Note[] {
     return this.notes;
+  }
+
+  /**
+   * @description Get string representation of Chord
+   */
+  public toString(): string {
+    return `${this.note.toString(true)}${this.info.abbreviation[0]}`;
   }
 }

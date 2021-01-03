@@ -2,6 +2,7 @@ import { Note } from "../note";
 import { Interval } from "../interval";
 import { SCALES_LIB } from "./lib";
 import { IScale } from "./interfaces";
+import { Chord, CHORDS_LIB } from "../chord";
 
 /**
  * Scale class
@@ -82,6 +83,37 @@ export class Scale {
    */
   public getScaleInfo(): IScale | undefined {
     return this.scaleInfo;
+  }
+
+  public getChords(): Array<Chord[]> {
+    const result = [];
+
+    for (let i = 0; i < this.notes.length; i++) {
+      const chords: Chord[] = [];
+      const note = this.notes[i];
+
+      CHORDS_LIB.forEach((chordInfo) => {
+        const chord = new Chord(note, chordInfo);
+        const chordNotes = chord.getNotes();
+        if (chordNotes.every((chordNote) => this.includes(chordNote))) {
+          chords.push(chord);
+        }
+      });
+
+      result.push(chords);
+    }
+
+    return result;
+  }
+
+  public includes(note: Note | string): boolean {
+    if (typeof note === "string") {
+      note = Note.fromString(note);
+    }
+
+    const numbers = this.notes.map((note) => note.number() % 12);
+
+    return numbers.includes(note.number() % 12);
   }
 
   /**

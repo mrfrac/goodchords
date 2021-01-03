@@ -1,2 +1,2 @@
 export { Chord } from "./chord";
-export { findChordByName } from "./lib";
+export { CHORDS_LIB } from "./lib";
