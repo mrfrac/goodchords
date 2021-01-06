@@ -15,7 +15,7 @@ export class NoteLetter {
 
     this.index = this.letters.indexOf(this.letter);
 
-    if (!(this.index >= 0)) {
+    if (this.index < 0) {
       throw new Error(`Wrong note letter: ${letter}`);
     }
 

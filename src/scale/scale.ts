@@ -47,7 +47,7 @@ export class Scale {
 
     if (typeof scale === "string") {
       this.scaleInfo = this.getScaleByName(scale);
-      formula = this.scaleInfo?.formula || [];
+      formula = this.scaleInfo?.formula ?? [];
     } else {
       formula = scale;
     }
@@ -111,7 +111,9 @@ export class Scale {
       note = Note.fromString(note);
     }
 
-    const numbers = this.notes.map((note) => note.number() % 12);
+    const numbers = this.notes.map(
+      (noteInstance) => noteInstance.number() % 12,
+    );
 
     return numbers.includes(note.number() % 12);
   }
