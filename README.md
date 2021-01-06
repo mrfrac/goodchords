@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/mrfrac/goodchords.svg?branch=master)](https://travis-ci.org/mrfrac/goodchords)
 [![Coverage Status](https://coveralls.io/repos/github/mrfrac/goodchords/badge.svg?branch=master)](https://coveralls.io/github/mrfrac/goodchords?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mrfrac_goodchords&metric=code_smells)](https://sonarcloud.io/dashboard?id=mrfrac_goodchords)
 
 > Music theory library
 
