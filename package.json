@@ -2,7 +2,7 @@
   "name": "goodchords",
   "repository": "git@github.com:mrfrac/goodchords.git",
   "author": "mrfrac <fracturer@gmail.com>",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Music theory library",
   "main": "dist/goodchords.cjs.js",
   "module": "dist/goodchords.es.js",
