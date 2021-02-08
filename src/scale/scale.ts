@@ -20,6 +20,31 @@ export class Scale {
   private notes: Note[] = [];
 
   /**
+   * Get all known by app scales
+   * @returns {IScale[]}
+   */
+  static getScales(): IScale[] {
+    return SCALES_LIB;
+  }
+
+  /**
+   * Find scale by name
+   * @param {string} name
+   * @returns {IScale | undefined}
+   */
+  static getScaleByName(name: string): IScale | undefined {
+    name = name.toLowerCase();
+    return SCALES_LIB.find((scale) => {
+      if (scale.name.toLowerCase() === name) {
+        return true;
+      } else if (scale.altNames) {
+        return scale.altNames.some((altName) => altName.toLowerCase() === name);
+      }
+      return false;
+    });
+  }
+
+  /**
    * Scale constructor
    * @param {string | Note } rootNote
    * @param {Array<Interval | string>} scale Scale formula or name
@@ -46,7 +71,7 @@ export class Scale {
     let formula: Array<string | Interval> = [];
 
     if (typeof scale === "string") {
-      this.scaleInfo = this.getScaleByName(scale);
+      this.scaleInfo = Scale.getScaleByName(scale);
       formula = this.scaleInfo?.formula ?? [];
     } else {
       formula = scale;
@@ -118,21 +143,21 @@ export class Scale {
     return numbers.includes(note.number() % 12);
   }
 
-  /**
-   * Find scale by name
-   * @param {string} name
-   * @returns {IScale | undefined}
-   */
-  private getScaleByName(name: string): IScale | undefined {
-    name = name.toLowerCase();
-    return SCALES_LIB.find((scale) => {
-      if (scale.name.toLowerCase() === name) {
-        return true;
-      } else if (scale.altNames) {
-        return scale.altNames.some((altName) => altName.toLowerCase() === name);
+  public getExtendedScales(): IScale[] {
+    const result = [];
+
+    for (const scaleItem of Scale.getScales()) {
+      const newScale = new Scale(this.rootNote, scaleItem.name);
+      const isSameNotes = this.notes.every((noteItem) =>
+        newScale.includes(noteItem),
+      );
+
+      if (isSameNotes && newScale.notes.length > this.notes.length) {
+        result.push(scaleItem);
       }
-      return false;
-    });
+    }
+
+    return result;
   }
 
   /**
