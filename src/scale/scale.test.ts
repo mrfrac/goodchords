@@ -116,4 +116,28 @@ describe("Scale class testing", () => {
     expect(chordsSimplify(levels[5]).includes("Am")).toBeTruthy();
     expect(chordsSimplify(levels[6]).includes("Bdim")).toBeTruthy();
   });
+
+  test("Should get scale by name", () => {
+    expect(Scale.getScaleByName("major")).toBeDefined();
+  });
+
+  test("Should get all scales", () => {
+    expect(Scale.getScales()).toBeDefined();
+  });
+
+  test("Should get extended scales", () => {
+    const scale = new Scale("C", "Major");
+    const extendedScales = scale.getExtendedScales();
+    expect(extendedScales.length).toBe(5);
+    const names = [
+      "Bebop",
+      "Bebop major",
+      "Chromatic",
+      "Japanese (Ichikosucho)",
+      "Japanese (Taishikicho)",
+    ];
+    expect(
+      extendedScales.map((i) => i.name).every((i) => names.includes(i)),
+    ).toBeTruthy();
+  });
 });
