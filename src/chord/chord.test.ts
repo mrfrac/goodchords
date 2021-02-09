@@ -62,4 +62,8 @@ describe("Chord class testing", () => {
         .map((note) => note.toString()),
     ).toEqual(["D#4", "F#4", "A#4"]);
   });
+
+  test("should get all chords", () => {
+    expect(Chord.getChords().length).toBeGreaterThan(0);
+  });
 });
