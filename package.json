@@ -48,11 +48,6 @@
   "files": [
     "dist"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.ts": [
       "prettier --parser typescript --write --trailing-comma all --arrow-parens always",
