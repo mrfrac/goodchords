@@ -3,7 +3,7 @@ import { Note } from "../note";
 import { Scale } from "../scale";
 import { IChordInfo } from "./interfaces";
 
-import { findChordByName } from "./lib";
+import { CHORDS_LIB } from "./lib";
 
 export class Chord {
   static fromString(chord: string): Chord {
@@ -18,6 +18,14 @@ export class Chord {
     }
 
     throw new Error(`Wrong chord format: ${chord}`);
+  }
+
+  static getChordByName(name: string): IChordInfo | undefined {
+    return CHORDS_LIB.find((chord) => chord.abbreviation.includes(name));
+  }
+
+  static getChords(): IChordInfo[] {
+    return CHORDS_LIB;
   }
 
   private note: Note;
@@ -36,7 +44,7 @@ export class Chord {
     this.note = typeof note === "string" ? Note.fromString(note) : note;
 
     if (typeof formula === "string") {
-      const chordData = findChordByName(formula);
+      const chordData = Chord.getChordByName(formula);
 
       if (chordData) {
         this.info = chordData;

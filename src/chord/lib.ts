@@ -1,9 +1,5 @@
 import { IChordInfo } from "./interfaces";
 
-export function findChordByName(name: string): IChordInfo | undefined {
-  return CHORDS_LIB.find((chord) => chord.abbreviation.includes(name));
-}
-
 export const CHORDS_LIB: IChordInfo[] = [
   {
     name: "Major",
