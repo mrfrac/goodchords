@@ -32,7 +32,8 @@ describe("Chord class testing", () => {
     const chord = new Chord(Note.fromString("A"), "m");
     expect(chord.getNotes().map((note) => note.toString())).toEqual([
       "A4",
-      "C5", "E5",
+      "C5",
+      "E5",
     ]);
   });
 

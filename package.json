@@ -52,8 +52,7 @@
     "src/**/*.ts": [
       "prettier --parser typescript --write --trailing-comma all --arrow-parens always",
       "npm run typecheck",
-      "npm run linter",
-      "git add"
+      "npm run linter"
     ]
   }
 }
