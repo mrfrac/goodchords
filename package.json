@@ -39,7 +39,7 @@
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.36.0",
-    "rollup-plugin-typescript2": "^0.29.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^26.4.4",
     "tslib": "^2.0.3",
