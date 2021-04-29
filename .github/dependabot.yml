@@ -1,0 +1,38 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "22:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: rollup
+    versions:
+    - 2.38.3
+    - 2.39.1
+    - 2.41.1
+    - 2.41.4
+    - 2.41.5
+    - 2.45.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.14.1
+    - 4.17.0
+    - 4.21.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.14.1
+    - 4.21.0
+  - dependency-name: eslint
+    versions:
+    - 7.22.0
+  - dependency-name: husky
+    versions:
+    - 5.1.2
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.0.0
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
