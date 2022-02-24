@@ -1,0 +1,13 @@
+image: Ubuntu1804
+stack: node 12
+cache: node_modules
+
+branches:
+  only:
+    - master
+  
+install:
+  - npm install
+  
+test_script:
+  - jest --coverage --coverageReporters=text-lcov | coveralls
