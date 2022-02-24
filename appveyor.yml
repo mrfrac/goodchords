@@ -10,4 +10,4 @@ install:
   - npm install
   
 test_script:
-  - npx jest --coverage --coverageReporters=text-lcov | coveralls
+  - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
