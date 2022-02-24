@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/goodchords.svg)](https://badge.fury.io/js/goodchords)
 ![GitHub top language](https://img.shields.io/github/languages/top/mrfrac/goodchords?branch=master)
-[![Build Status](https://travis-ci.org/mrfrac/goodchords.svg?branch=master)](https://travis-ci.org/mrfrac/goodchords)
+[![Build status](https://ci.appveyor.com/api/projects/status/i8h691mm5an60471?svg=true)](https://ci.appveyor.com/project/mrfrac/goodchords)
 [![Coverage Status](https://coveralls.io/repos/github/mrfrac/goodchords/badge.svg?branch=master)](https://coveralls.io/github/mrfrac/goodchords?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mrfrac_goodchords&metric=code_smells)](https://sonarcloud.io/dashboard?id=mrfrac_goodchords)
@@ -42,8 +42,9 @@ const { Scale, Chord, Interval, Note } = require("goodchords");
 Usage example:
 
 ```html
-<html>
+<html lang="en">
   <head>
+    <title>Goodchords</title>
     <script src="https://cdn.jsdelivr.net/npm/goodchords@X/dist/goodchords.umd.js"></script>
     <script>
       alert(window.goodchords.Note.fromString("A4").frequency());
