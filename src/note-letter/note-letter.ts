@@ -26,6 +26,10 @@ export class NoteLetter {
     return this.letter;
   }
 
+  public toString(): string {
+    return this.valueOf();
+  }
+
   public next(step: number): NoteLetter {
     return new NoteLetter(
       this.letters[(this.index + step) % this.letters.length],
