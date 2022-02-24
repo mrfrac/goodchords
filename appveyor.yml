@@ -1,3 +1,7 @@
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
+
 image: Ubuntu1804
 stack: node 12
 cache: node_modules
