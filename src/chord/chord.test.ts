@@ -16,7 +16,7 @@ describe("Chord class testing", () => {
         .map((note) => note.toString()),
     ).toEqual(["A4"]);
 
-    expect(new Chord("A", {} as any).getNotes()).toEqual([]);
+    expect(new Chord("A", "").getNotes()).toEqual([]);
   });
 
   test("should properly construct chord from string", () => {
@@ -65,5 +65,10 @@ describe("Chord class testing", () => {
 
   test("should get all chords", () => {
     expect(Chord.getChords().length).toBeGreaterThan(0);
+  });
+
+  test("should correct work", () => {
+    const chord = Chord.fromString("E7#5sus4");
+    expect(chord.getNotes()[2].toString()).toBe("B#4");
   });
 });

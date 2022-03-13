@@ -60,6 +60,7 @@ describe("Note class testing", () => {
       expect(Note.fromString("C").transpose("A10").toString()).toBe("E#5");
       expect(Note.fromString("C").transpose("A11").toString()).toBe("F#5");
       expect(Note.fromString("C").transpose("A8").toString()).toBe("C#5");
+      expect(Note.fromString("E").transpose("A5").toString()).toBe("B#4");
     });
 
     test("Diminished intervals", () => {
@@ -115,5 +116,12 @@ describe("Note class testing", () => {
     expect(Note.fromString("A0").frequency()).toBe(27.5);
     expect(Note.fromString("G0").frequency()).toBe(24.5);
     expect(Note.fromString("E1").frequency()).toBe(41.2);
+  });
+
+  describe("note info testing", () => {
+    const noteInfo = Note.fromString("C#7").info();
+    expect(noteInfo.symbol).toBe("C");
+    expect(noteInfo.accidental.asString).toBe("#");
+    expect(noteInfo.octave).toBe(7);
   });
 });

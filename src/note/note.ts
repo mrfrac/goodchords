@@ -1,6 +1,6 @@
-import { Interval } from "../interval/index";
+import { Interval } from "../interval";
 import { NoteLetter } from "../note-letter";
-import { IAccidental } from "./interfaces";
+import { IAccidental, INoteInfo } from "./interfaces";
 
 /**
  * Note class realization
@@ -22,7 +22,7 @@ export class Note {
    * @throws if note format is wrong
    */
   public static fromString(note: string): Note {
-    const regex = /^([a-g]{1})([#b]{1,})?([0-9]{1})?$/i;
+    const regex = /^([a-g]{1})([#b]{1,})?([0-9]{1,})?$/i;
 
     const tokens = note.match(regex);
 
@@ -103,11 +103,11 @@ export class Note {
     const intervalPitchClass = interval.semitones() || 0;
     const targetNoteNumber =
       this.number() + intervalPitchClass - this.accidentals.index;
-    const targeNoteOctave = Math.trunc(targetNoteNumber / 12);
+    let targetNoteOctave = Math.trunc(targetNoteNumber / 12);
 
     const distanceToTargetNote = Note.fromString(
       `${this.noteLetter.letter}${this.octave}`,
-    ).distanceTo(new Note(targetNoteLetter.letter, "", targeNoteOctave));
+    ).distanceTo(new Note(targetNoteLetter.letter, "", targetNoteOctave));
 
     let targetNoteAccidentalIndex = this.accidentals.index;
     const pitchDifference = Math.abs(intervalPitchClass - distanceToTargetNote);
@@ -121,16 +121,22 @@ export class Note {
 
     const absoluteAccidentalIndex = Math.abs(targetNoteAccidentalIndex);
     const num = absoluteAccidentalIndex % 12;
-    if (targetNoteAccidentalIndex < 0) {
-      targetNoteAccidentalString = "b".repeat(num);
-    } else if (targetNoteAccidentalIndex > 0) {
-      targetNoteAccidentalString = "#".repeat(num);
+
+    if (num === 11) {
+      targetNoteOctave -= 1;
+      targetNoteAccidentalString = "#";
+    } else {
+      if (targetNoteAccidentalIndex < 0) {
+        targetNoteAccidentalString = "b".repeat(num);
+      } else if (targetNoteAccidentalIndex > 0) {
+        targetNoteAccidentalString = "#".repeat(num);
+      }
     }
 
     return new Note(
       targetNoteLetter.letter,
       targetNoteAccidentalString,
-      targeNoteOctave,
+      targetNoteOctave,
     );
   }
 
@@ -168,5 +174,22 @@ export class Note {
    */
   public number(): number {
     return this.octave * 12 + this.noteLetter.distance + this.accidentals.index;
+  }
+
+  /**
+   * Represent note static information
+   * @returns {INoteInfo} Note info
+   */
+  public info(): INoteInfo {
+    return {
+      accidental: this.accidentals,
+      octave: this.octave,
+      frequency: this.frequency(),
+      symbol: this.noteLetter.letter,
+    };
+  }
+
+  public ttt(): boolean {
+    return true;
   }
 }
