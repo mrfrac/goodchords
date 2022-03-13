@@ -68,7 +68,7 @@ export class Scale {
       this.rootNote = rootNote;
     }
 
-    let formula: Array<string | Interval> = [];
+    let formula: Array<string | Interval>;
 
     if (typeof scale === "string") {
       this.scaleInfo = Scale.getScaleByName(scale);
@@ -113,9 +113,8 @@ export class Scale {
   public getChords(): Array<Chord[]> {
     const result = [];
 
-    for (let i = 0; i < this.notes.length; i++) {
+    for (const note of this.notes) {
       const chords: Chord[] = [];
-      const note = this.notes[i];
 
       CHORDS_LIB.forEach((chordInfo) => {
         const chord = new Chord(note, chordInfo);

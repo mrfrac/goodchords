@@ -83,10 +83,6 @@ describe("Note class testing", () => {
       expect(Note.fromString("C").transpose("P4").toString()).toBe("F4");
       expect(Note.fromString("C").transpose("P5").toString()).toBe("G4");
       expect(Note.fromString("C").transpose("P8").toString()).toBe("C5");
-
-      // @todo fix that later
-      /* expect(Note.fromString("C").transpose("P17").toString()).toBeUndefined();
-      expect(Note.fromString("C").transpose("P10").toString()).toBeUndefined(); */
     });
   });
 

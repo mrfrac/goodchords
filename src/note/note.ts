@@ -22,7 +22,7 @@ export class Note {
    * @throws if note format is wrong
    */
   public static fromString(note: string): Note {
-    const regex = /^([a-g]{1})([#b]{1,})?([0-9]{1,})?$/i;
+    const regex = /^([a-g]{1})([#b]+)?(\d+)?$/i;
 
     const tokens = note.match(regex);
 

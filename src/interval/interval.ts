@@ -53,7 +53,7 @@ export class Interval {
    */
   public constructor(num: number, quality: TIntervalQuality) {
     this.num = num;
-    this.octaves = Math.floor((Math.abs(this.num) - 1) / 7); //num > 8 ? Math.trunc(num / 8) : 0;
+    this.octaves = Math.floor((Math.abs(this.num) - 1) / 7);
     this.quality = quality;
 
     if (INTERVALS[this.quality]) {
