@@ -4,7 +4,6 @@ environment:
 
 image: Ubuntu1804
 stack: node 16
-cache: node_modules
 
 branches:
   only:
