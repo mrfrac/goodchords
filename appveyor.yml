@@ -11,7 +11,7 @@ branches:
     - master
 
 install:
-  - npm install
+  - npm ci
 
 test_script:
   - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
