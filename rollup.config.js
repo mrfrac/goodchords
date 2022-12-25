@@ -1,11 +1,11 @@
-import typescript from "rollup-plugin-typescript2";
+import ts from "rollup-plugin-typescript2";
 import { uglify } from "rollup-plugin-uglify";
 
 function getConfig(target, plugins = []) {
   return {
     input: "./src/index.ts",
     plugins: [
-      typescript(),
+      ts(),
       ...plugins
     ],
     output: {

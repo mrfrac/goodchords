@@ -3,15 +3,15 @@ environment:
     secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
 
 image: Ubuntu1804
-stack: node 12
+stack: node 16
 cache: node_modules
 
 branches:
   only:
     - master
-  
+
 install:
   - npm install
-  
+
 test_script:
   - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
