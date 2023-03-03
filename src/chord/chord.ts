@@ -7,7 +7,7 @@ import { CHORDS_LIB } from "./lib";
 
 export class Chord {
   static fromString(chord: string): Chord {
-    const regex = /^([a-g]{1})([#b]{1,})?(.*)$/i;
+    const regex = /^([a-g])([#b]{1,10})?(.*)$/i;
     const tokens = chord.match(regex);
 
     if (tokens) {

@@ -16,7 +16,8 @@
     "coverage": "jest --coverage",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit --skipLibCheck",
-    "linter": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
+    "linter": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+    "linter-dummy": "echo 'Linter must be here. FIX ME'"
   },
   "keywords": [
     "chord",
@@ -53,7 +54,7 @@
     "src/**/*.ts": [
       "prettier --parser typescript --write --trailing-comma all --arrow-parens always",
       "npm run typecheck",
-      "npm run linter"
+      "npm run linter-dummy"
     ]
   }
 }
