@@ -6,7 +6,7 @@ image: Ubuntu1804
 stack: node 16
 
 install:
-  - yarn install
+  - npm ci
 
 test_script:
   - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
