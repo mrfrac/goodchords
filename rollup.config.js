@@ -1,5 +1,5 @@
 import ts from "rollup-plugin-typescript2";
-import { uglify } from "rollup-plugin-uglify";
+import terser from '@rollup/plugin-terser';
 
 function getConfig(target, plugins = []) {
   return {
@@ -16,4 +16,4 @@ function getConfig(target, plugins = []) {
   }
 }
 
-export default [getConfig("cjs"), getConfig("es"), getConfig("umd", [uglify()])];
+export default [getConfig("cjs"), getConfig("es"), getConfig("umd", [terser()])];
