@@ -6,7 +6,6 @@ image: Ubuntu1804
 stack: node 20
 
 install:
-  - ps: Install-Product node $env:nodejs_version
   - npm install --global corepack@latest
   - corepack enable
   - corepack prepare pnpm@latest-10 --activate
