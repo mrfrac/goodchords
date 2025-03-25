@@ -8,7 +8,7 @@ image:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install --global corepack@latest
+  - npm install --global corepack@0.32.0
   - corepack --version
   - corepack enable
   - corepack prepare pnpm@latest-10 --activate
