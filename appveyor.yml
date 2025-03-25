@@ -1,12 +1,16 @@
 environment:
   COVERALLS_REPO_TOKEN:
     secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
+  nodejs_version: "20"
 
-image: Ubuntu1804
-stack: node 20
+image:
+  - Visual Studio 2022
 
 install:
-  - npm install --global pnpm@latest
+  - ps: Install-Product node $env:nodejs_version
+  - npm install --global corepack@latest
+  - corepack enable
+  - corepack prepare pnpm@latest-10 --activate
   - pnpm install
 
 test_script:
