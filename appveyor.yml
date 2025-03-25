@@ -3,10 +3,14 @@ environment:
     secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
 
 image: Ubuntu1804
-stack: node 16
+stack: node 20
 
 install:
-  - npm ci
+  - ps: Install-Product node $env:nodejs_version
+  - npm install --global corepack@latest
+  - corepack enable
+  - corepack prepare pnpm@latest-10 --activate
+  - pnpm install
 
 test_script:
-  - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
+  - pnpx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
