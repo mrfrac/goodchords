@@ -7,7 +7,7 @@ export class NoteLetter {
   public readonly letter: string;
   public readonly index: number;
   public readonly distance: number;
-  private readonly letters = "CDEFGAB";
+  private readonly letters = 'CDEFGAB';
   private readonly distances = [0, 2, 4, 5, 7, 9, 11];
 
   constructor(letter: string) {

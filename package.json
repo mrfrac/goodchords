@@ -19,7 +19,8 @@
     "coverage": "nx jest:test --coverage",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit --skipLibCheck",
-    "linter": "npx eslint --ignore-path .gitignore . --fix"
+    "linter": "npx eslint --ignore-path .gitignore . --fix",
+    "lint": "nx run-many --target=lint --all"
   },
   "keywords": [
     "chord",
@@ -35,14 +36,19 @@
     "@nx/js": "20.6.2",
     "@nx/rollup": "20.6.2",
     "@rollup/plugin-terser": "0.4.4",
-    "@types/jest": "29.5.1",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@types/jest": "29.5.14",
     "@types/node": "20.14.8",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "coveralls": "3.1.1",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "9.1.0",
     "husky": "8.0.3",
-    "jest": "29.5.0",
+    "jest": "29.7.0",
+    "jest-environment-node": "29.7.0",
+    "jsonc-eslint-parser": "2.4.0",
     "lint-staged": "14.0.1",
     "nx": "20.6.2",
     "prettier": "3.3.3",
@@ -72,5 +78,6 @@
     "ignoredBuiltDependencies": [
       "@swc/core"
     ]
-  }
+  },
+  "dependencies": {}
 }
