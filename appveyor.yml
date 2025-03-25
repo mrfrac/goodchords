@@ -6,9 +6,7 @@ image: Ubuntu1804
 stack: node 20
 
 install:
-  - npm install --global corepack@latest
-  - corepack enable
-  - corepack prepare pnpm@latest-10 --activate
+  - npm install --global pnpm@latest
   - pnpm install
 
 test_script:
