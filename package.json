@@ -31,25 +31,23 @@
   "devDependencies": {
     "@nx/eslint": "20.6.2",
     "@nx/jest": "20.6.2",
-    "@nx/rollup": "^20.6.2",
-    "@rollup/plugin-terser": "^0.4.0",
-    "@types/jest": "^29.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "coveralls": "^3.1.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "@nx/js": "20.6.2",
+    "@nx/rollup": "20.6.2",
+    "@rollup/plugin-terser": "0.4.4",
+    "@types/jest": "29.5.1",
+    "@types/node": "20.14.8",
+    "coveralls": "3.1.1",
     "husky": "8.0.3",
-    "jest": "^29.4.3",
-    "lint-staged": "^14.0.1",
+    "jest": "29.5.0",
+    "lint-staged": "14.0.1",
     "nx": "20.6.2",
-    "prettier": "^3.0.0",
-    "rollup": "^4.21.0",
+    "prettier": "3.3.3",
+    "rollup": "4.36.0",
     "rollup-plugin-typescript2": "0.36.0",
-    "ts-jest": "^29.0.5",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.4"
+    "ts-jest": "29.2.5",
+    "ts-node": "10.9.1",
+    "tslib": "2.6.2",
+    "typescript": "5.5.4"
   },
   "files": [
     "dist"
@@ -61,5 +59,14 @@
       "npm run linter"
     ]
   },
-  "nx": {}
+  "nx": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "nx"
+    ],
+    "ignoredBuiltDependencies": [
+      "@swc/core"
+    ]
+  }
 }

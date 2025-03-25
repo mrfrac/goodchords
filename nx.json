@@ -24,6 +24,23 @@
     },
     "linter": {
       "cache": true
+    },
+    "@nx/jest:jest": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/jest.preset.cjs"
+      ],
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     }
   },
   "defaultBase": "master",
@@ -40,6 +57,12 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "jest:test"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
       }
     }
   ]
