@@ -8,6 +8,8 @@ image:
 
 install:
   - ps: Install-Product node $env:nodejs_version
+  - corepack --version
+  - npm uninstall -g corepack
   - npm install --global corepack@0.32.0
   - corepack --version
   - corepack enable
