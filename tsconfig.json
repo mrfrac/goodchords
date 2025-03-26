@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "es5",
     "module": "es2015",
@@ -8,6 +7,11 @@
     "declarationDir": "dist",
     "strict": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "paths": {
+      "@libs/note-letter": ["./libs/note-letter/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "libs/**/*"],
+  "exclude": ["node_modules"]
 }
