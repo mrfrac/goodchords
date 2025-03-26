@@ -1,8 +1,5 @@
+import { getJestProjects } from '@nx/jest';
+
 export default {
-  "roots": [
-    "./src"
-  ],
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
-  },
-}
+  projects: getJestProjects(),
+};

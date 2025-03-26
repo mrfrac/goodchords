@@ -82,3 +82,8 @@ typings/
 #IDE
 .vscode
 .idea
+
+
+
+.nx/cache
+.nx/workspace-data

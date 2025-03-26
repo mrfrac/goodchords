@@ -1,0 +1,26 @@
+{
+  "name": "note-letter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/note-letter/src",
+  "projectType": "library",
+  "tags": ["lib:note-letter"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/note-letter",
+        "main": "libs/note-letter/src/index.ts",
+        "tsConfig": "libs/note-letter/tsconfig.lib.json",
+        "assets": ["libs/note-letter/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/note-letter/jest.config.ts"
+      }
+    }
+  }
+}

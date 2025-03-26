@@ -1,6 +1,6 @@
-import { Interval } from "../interval";
-import { NoteLetter } from "../note-letter";
-import { IAccidental, INoteInfo } from "./interfaces";
+import { NoteLetter } from '@libs/note-letter';
+import { Interval } from '../interval';
+import { IAccidental, INoteInfo } from './interfaces';
 
 /**
  * Note class realization
@@ -52,14 +52,18 @@ export class Note {
    * @param {string} accidental accidentals string ("###", "bbbb")
    * @param {number} octave octave value (default: 4)
    */
-  public constructor(note: string, accidental: string, private octave: number) {
+  public constructor(
+    note: string,
+    accidental: string,
+    private octave: number,
+  ) {
     this.noteLetter = new NoteLetter(note);
     this.accidentals = {
-      asString: accidental || "",
+      asString: accidental || '',
       index: accidental
         ? accidental
-            .split("")
-            .map((letter) => (letter === "#" ? 1 : -1))
+            .split('')
+            .map((letter) => (letter === '#' ? 1 : -1))
             .reduce((prev, curr) => prev + curr, 0)
         : 0,
     };
@@ -74,7 +78,7 @@ export class Note {
    * @returns Note string represenation
    */
   public toString(withoutOctave = false): string {
-    const octave = withoutOctave ? "" : this.octave;
+    const octave = withoutOctave ? '' : this.octave;
     return `${this.noteLetter}${this.accidentals.asString}${octave}`;
   }
 
@@ -87,10 +91,10 @@ export class Note {
    */
   public transpose(interval: string | Interval): Note {
     interval =
-      typeof interval === "string" ? Interval.fromString(interval) : interval;
+      typeof interval === 'string' ? Interval.fromString(interval) : interval;
 
     if (!interval.isValid()) {
-      throw new Error("Wrong interval");
+      throw new Error('Wrong interval');
     }
 
     let simpleIntervalNum = interval.num - 1;
@@ -107,7 +111,7 @@ export class Note {
 
     const distanceToTargetNote = Note.fromString(
       `${this.noteLetter.letter}${this.octave}`,
-    ).distanceTo(new Note(targetNoteLetter.letter, "", targetNoteOctave));
+    ).distanceTo(new Note(targetNoteLetter.letter, '', targetNoteOctave));
 
     let targetNoteAccidentalIndex = this.accidentals.index;
     const pitchDifference = Math.abs(intervalPitchClass - distanceToTargetNote);
@@ -117,19 +121,19 @@ export class Note {
       targetNoteAccidentalIndex -= pitchDifference;
     }
 
-    let targetNoteAccidentalString = "";
+    let targetNoteAccidentalString = '';
 
     const absoluteAccidentalIndex = Math.abs(targetNoteAccidentalIndex);
     const num = absoluteAccidentalIndex % 12;
 
     if (num === 11) {
       targetNoteOctave -= 1;
-      targetNoteAccidentalString = "#";
+      targetNoteAccidentalString = '#';
     } else {
       if (targetNoteAccidentalIndex < 0) {
-        targetNoteAccidentalString = "b".repeat(num);
+        targetNoteAccidentalString = 'b'.repeat(num);
       } else if (targetNoteAccidentalIndex > 0) {
-        targetNoteAccidentalString = "#".repeat(num);
+        targetNoteAccidentalString = '#'.repeat(num);
       }
     }
 
@@ -148,7 +152,7 @@ export class Note {
    * @returns {number} Semitones from C0
    */
   public distanceTo(note: Note | string): number {
-    if (typeof note === "string") {
+    if (typeof note === 'string') {
       note = Note.fromString(note);
     }
 
@@ -162,7 +166,7 @@ export class Note {
    * @returns {number} frequency (Hz)
    */
   public frequency(): number {
-    const distanceFromA4 = Note.fromString("A4").distanceTo(this);
+    const distanceFromA4 = Note.fromString('A4').distanceTo(this);
     return +Number(440 * Math.pow(2, distanceFromA4 / 12)).toFixed(2);
   }
 

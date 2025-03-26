@@ -1,12 +1,16 @@
 environment:
   COVERALLS_REPO_TOKEN:
     secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
+  nodejs_version: "20"
 
-image: Ubuntu1804
-stack: node 16
+image: Ubuntu2004
 
 install:
-  - npm ci
+  - nvm use 20
+  - npm install --global corepack@0.32.0
+  - corepack enable
+  - corepack prepare pnpm@latest-10 --activate
+  - pnpm install
 
 test_script:
-  - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
+  - pnpx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
