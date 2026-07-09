@@ -1,0 +1,40 @@
+{
+  "name": "goodchords",
+  "version": "0.5.0",
+  "description": "Music theory library",
+  "repository": "git@github.com:mrfrac/goodchords.git",
+  "author": "mrfrac <fracturer@gmail.com>",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "chord",
+    "note",
+    "interval",
+    "scale",
+    "music"
+  ],
+  "nx": {
+    "tags": [
+      "scope:music-theory",
+      "type:library"
+    ]
+  }
+}

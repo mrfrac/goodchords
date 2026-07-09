@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../.tmp/tsc/goodchords-spec",
+    "tsBuildInfoFile": "../../.tmp/tsc/goodchords-spec.tsbuildinfo",
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src/**/*.test.ts", "src/**/*.ts", "vitest.config.mts"]
+}

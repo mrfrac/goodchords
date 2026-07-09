@@ -43,6 +43,10 @@ typings/
 # Optional npm cache directory
 .npm
 
+# Nx and local TypeScript caches
+.nx
+.tmp
+
 # Optional eslint cache
 .eslintcache
 

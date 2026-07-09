@@ -1,12 +1,11 @@
-environment:
-  COVERALLS_REPO_TOKEN:
-    secure: psgCntSJDXkDZgEvvzIu5+8SxXltLPT4ozgu6RvfsiiF6G2fAB6MQ+w4LvXs7skp
-
-image: Ubuntu1804
-stack: node 16
+image: Ubuntu2204
+stack: node 22
 
 install:
   - npm ci
 
 test_script:
-  - npx jest --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
+  - npm run lint
+  - npm test -- --coverage
+  - npm run typecheck
+  - npm run build

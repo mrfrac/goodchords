@@ -86,7 +86,7 @@ describe("Note class testing", () => {
     });
   });
 
-  describe("distanceTo testing", () => {
+  test("distanceTo testing", () => {
     expect(Note.fromString("C").distanceTo("C")).toEqual(0);
     expect(Note.fromString("C").distanceTo("C5")).toEqual(12);
     expect(Note.fromString("C").distanceTo("C3")).toEqual(-12);
@@ -98,7 +98,7 @@ describe("Note class testing", () => {
     expect(Note.fromString("A").distanceTo("A0")).toEqual(-48);
   });
 
-  describe("number testing", () => {
+  test("number testing", () => {
     expect(Note.fromString("C0").number()).toBe(0);
     expect(Note.fromString("D0").number()).toBe(2);
     expect(Note.fromString("D5").number()).toBe(62);
@@ -106,7 +106,7 @@ describe("Note class testing", () => {
     expect(Note.fromString("Db5").number()).toBe(61);
   });
 
-  describe("frequency testing", () => {
+  test("frequency testing", () => {
     expect(Note.fromString("B").frequency()).toBe(493.88);
     expect(Note.fromString("B5").frequency()).toBe(987.77);
     expect(Note.fromString("A0").frequency()).toBe(27.5);
@@ -114,7 +114,7 @@ describe("Note class testing", () => {
     expect(Note.fromString("E1").frequency()).toBe(41.2);
   });
 
-  describe("note info testing", () => {
+  test("note info testing", () => {
     const noteInfo = Note.fromString("C#7").info();
     expect(noteInfo.symbol).toBe("C");
     expect(noteInfo.accidental.asString).toBe("#");
