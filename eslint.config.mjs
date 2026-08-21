@@ -1,28 +1,29 @@
-import nx from '@nx/eslint-plugin';
+import nx from "@nx/eslint-plugin";
 
 export default [
-  ...nx.configs['flat/base'],
-  ...nx.configs['flat/typescript'],
-  ...nx.configs['flat/javascript'],
+  ...nx.configs["flat/base"],
+  ...nx.configs["flat/typescript"],
+  ...nx.configs["flat/javascript"],
   {
     ignores: [
-      '**/coverage',
-      '**/dist',
-      '**/node_modules',
-      '**/*.config.{js,cjs,mjs,ts,mts}',
+      "**/coverage",
+      "**/dist",
+      "**/node_modules",
+      "**/*.config.{js,cjs,mjs,ts,mts}",
+      "**/vitest.config.*.timestamp*",
     ],
   },
   {
-    files: ['**/*.ts'],
+    files: ["**/*.ts"],
     rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
+      "@nx/enforce-module-boundaries": [
+        "error",
         {
           allow: [],
           depConstraints: [
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: "*",
+              onlyDependOnLibsWithTags: ["*"],
             },
           ],
           enforceBuildableLibDependency: true,

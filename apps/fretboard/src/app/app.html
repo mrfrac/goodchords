@@ -1,0 +1,179 @@
+<header class="topbar">
+  <div class="topbar__inner">
+    <div class="brand" aria-label="Goodchords">
+      <span class="brand__monogram" aria-hidden="true">GC</span>
+      <span class="brand__name">Goodchords</span>
+    </div>
+    <span class="product-name">Fretboard</span>
+  </div>
+</header>
+
+<main>
+  <section class="controls" aria-label="Fretboard settings">
+    <div class="controls__inner">
+      <label class="field">
+        <span class="field__label">Tuning</span>
+        <select
+          aria-label="Tuning"
+          data-testid="tuning-select"
+          [value]="tuningId()"
+          (change)="setTuning($event)"
+        >
+          @for (preset of tuningPresets; track preset.id) {
+          <option [value]="preset.id">{{ preset.label }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Frets</span>
+        <input
+          aria-label="Frets"
+          data-testid="fret-count-input"
+          type="number"
+          min="12"
+          max="24"
+          step="1"
+          [value]="fretCount()"
+          (input)="setFretCount($event)"
+        />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Root</span>
+        <select
+          aria-label="Root"
+          data-testid="root-select"
+          [value]="root()"
+          (change)="setRoot($event)"
+        >
+          @for (option of rootOptions; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field field--scale">
+        <span class="field__label">Scale</span>
+        <select
+          aria-label="Scale"
+          data-testid="scale-select"
+          [value]="scaleId()"
+          (change)="setScale($event)"
+        >
+          @for (option of scaleOptions; track option.id) {
+          <option [value]="option.id">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+
+      <fieldset class="field mode-field">
+        <legend class="field__label">Labels</legend>
+        <div class="segmented" data-testid="label-mode">
+          <button
+            class="segmented__button"
+            type="button"
+            [class.segmented__button--active]="labelMode() === 'notes'"
+            [attr.aria-pressed]="labelMode() === 'notes'"
+            (click)="setLabelMode('notes')"
+          >
+            Notes
+          </button>
+          <button
+            class="segmented__button"
+            type="button"
+            [class.segmented__button--active]="labelMode() === 'degrees'"
+            [attr.aria-pressed]="labelMode() === 'degrees'"
+            (click)="setLabelMode('degrees')"
+          >
+            Degrees
+          </button>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <section class="instrument" aria-labelledby="fretboard-title">
+    <div class="instrument__header">
+      <div>
+        <p class="eyebrow">{{ selectedTuning().label }} tuning</p>
+        <h1 id="fretboard-title">{{ title() }}</h1>
+      </div>
+      <div class="legend" aria-label="Marker legend">
+        <span><i class="legend__marker legend__marker--root"></i>Root</span>
+        <span><i class="legend__marker"></i>Scale</span>
+      </div>
+    </div>
+
+    <div
+      class="fretboard-scroll"
+      tabindex="0"
+      [attr.aria-label]="
+        title() +
+        ' guitar fretboard, ' +
+        selectedTuning().label +
+        ' tuning, through fret ' +
+        fretCount()
+      "
+    >
+      <div class="fretboard" [style.--fret-columns]="fretCount() + 1">
+        <div class="fretboard-row fret-number-row" aria-hidden="true">
+          <div class="string-label string-label--header">String</div>
+          @for (fret of fretboard().frets; track fret) {
+          <div
+            class="fret-number"
+            [class.fret-number--marker]="isPositionMarker(fret)"
+          >
+            {{ fret }}
+          </div>
+          }
+        </div>
+
+        @for (string of fretboard().strings; track string.stringNumber) {
+        <div
+          class="fretboard-row string-row"
+          [attr.aria-label]="
+              'String ' + string.stringNumber + ', tuned to ' + string.openNote
+            "
+        >
+          <div class="string-label">
+            <span class="string-number">{{ string.stringNumber }}</span>
+            <strong>{{ string.openLabel }}</strong>
+          </div>
+
+          @for (cell of string.cells; track cell.fret) {
+          <div
+            class="fret-cell"
+            [class.fret-cell--open]="cell.fret === 0"
+            [class.fret-cell--position]="isPositionMarker(cell.fret)"
+          >
+            <span class="guitar-string" aria-hidden="true"></span>
+            @if (cell.scaleNote && cell.degree) {
+            <span
+              class="note-marker"
+              role="img"
+              [class.note-marker--root]="cell.isRoot"
+              [attr.aria-label]="cell.ariaLabel"
+            >
+                    {{
+                      labelMode() === "notes" ? cell.scaleNote : cell.degree
+                    }}
+            </span>
+            }
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="scale-strip" aria-label="Notes in selected scale">
+      @for (entry of fretboard().scaleEntries; track entry.degree) {
+      <span [class.scale-strip__root]="entry.isRoot">
+        <strong>{{ entry.noteName }}</strong>
+        <small>{{ entry.degree }}</small>
+      </span>
+      }
+    </div>
+  </section>
+</main>

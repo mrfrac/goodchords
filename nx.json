@@ -6,7 +6,8 @@
       "default",
       "!{projectRoot}/**/*.test.ts",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/vitest.config.*"
+      "!{projectRoot}/vitest.config.*",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)"
     ],
     "sharedGlobals": []
   },
@@ -55,7 +56,20 @@
     "typecheck": {
       "inputs": ["default", "^production"],
       "cache": true
+    },
+    "@angular/build:application": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
-  "analytics": false
+  "analytics": false,
+  "generators": {
+    "@nx/angular:application": {
+      "e2eTestRunner": "none",
+      "linter": "eslint",
+      "style": "scss",
+      "unitTestRunner": "vitest-angular"
+    }
+  }
 }

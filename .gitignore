@@ -86,3 +86,7 @@ typings/
 #IDE
 .vscode
 .idea
+
+.angular
+
+vitest.config.*.timestamp*
