@@ -42,7 +42,7 @@
     "eslint": "^9.39.0",
     "husky": "^8.0.3",
     "jsdom": "^27.1.0",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.3.0",
     "nx": "23.0.1",
     "prettier": "~3.6.2",
     "rollup": "^4.61.0",
